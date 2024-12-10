@@ -1,3 +1,4 @@
+var iconPath = "icons/icon.png"
 var CurrentUser;
 var ComPort;
 var follow_count = 0;
@@ -238,7 +239,7 @@ $(document).ready(function() {
   
 
     $(".backup_picture").on("error", function(){
-        $(this).attr('src', 'icon.png');
+        $(this).attr('src', iconPath);
     });
    
 
@@ -287,7 +288,7 @@ $('#my-btns .btn').on('click', function(event) {
 
 
     $(".backup_picture").on("error", function(){
-        $(this).attr('src', 'icon.png');
+        $(this).attr('src', iconPath);
     });
 
 

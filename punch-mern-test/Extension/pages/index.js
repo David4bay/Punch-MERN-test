@@ -1,3 +1,4 @@
+var iconPath = "../icons/icon.png"
 var CurrentUser;
 var ComPort;
 var follow_count_num = 0;
@@ -140,7 +141,7 @@ var loadedAccounts = false;
 var updated_cloud = false;
 
 window.dataLayer = window.dataLayer || [];
-(function(global) {
+(function (global) {
     var MONTHS = [
         'January',
         'February',
@@ -172,11 +173,11 @@ window.dataLayer = window.dataLayer || [];
     var Color = global.Color;
 
     Samples.utils = {
-        srand: function(seed) {
+        srand: function (seed) {
             this._seed = seed;
         },
 
-        rand: function(min, max) {
+        rand: function (min, max) {
             var seed = this._seed;
             min = min === undefined ? 0 : min;
             max = max === undefined ? 1 : max;
@@ -184,7 +185,7 @@ window.dataLayer = window.dataLayer || [];
             return min + (this._seed / 233280) * (max - min);
         },
 
-        numbers: function(config) {
+        numbers: function (config) {
             var cfg = config || {};
             var min = cfg.min || 0;
             var max = cfg.max || 1;
@@ -208,7 +209,7 @@ window.dataLayer = window.dataLayer || [];
             return data;
         },
 
-        labels: function(config) {
+        labels: function (config) {
             var cfg = config || {};
             var min = cfg.min || 0;
             var max = cfg.max || 100;
@@ -227,7 +228,7 @@ window.dataLayer = window.dataLayer || [];
             return values;
         },
 
-        months: function(config) {
+        months: function (config) {
             var cfg = config || {};
             var count = cfg.count || 12;
             var section = cfg.section;
@@ -242,18 +243,18 @@ window.dataLayer = window.dataLayer || [];
             return values;
         },
 
-        color: function(index) {
+        color: function (index) {
             return COLORS[index % COLORS.length];
         },
 
-        transparentize: function(color, opacity) {
+        transparentize: function (color, opacity) {
             var alpha = opacity === undefined ? 0.5 : 1 - opacity;
             return Color(color).alpha(alpha).rgbString();
         }
     };
 
     // DEPRECATED
-    window.randomScalingFactor = function() {
+    window.randomScalingFactor = function () {
         return Math.round(Samples.utils.rand(-100, 100));
     };
     Samples.utils.srand(Date.now());
@@ -265,14 +266,14 @@ function timer(ms) {
     return new Promise(res => setTimeout(res, ms));
 }
 
-async function RankTargets(recents) { 
+async function RankTargets(recents) {
 }
 
 
 
 
 
-$(document).on('change', '#minPhoto', function(event) {
+$(document).on('change', '#minPhoto', function (event) {
     d = document.getElementById("minPhoto").value;
     SendMessage("minPhoto", "minPhoto", d);
 
@@ -281,33 +282,33 @@ $(document).on('change', '#minPhoto', function(event) {
 
 
 
-$(document).on('change', '#maxFollower', function(event) {
+$(document).on('change', '#maxFollower', function (event) {
     d = document.getElementById("maxFollower").value;
     SendMessage("maxFollowers", "maxFollowers", d);
 
 
 });
 
-$(document).on('change', '#minFollower', function(event) {
+$(document).on('change', '#minFollower', function (event) {
     d = document.getElementById("minFollower").value;
     SendMessage("minFollowers", "minFollowers", d);
 
 
 });
 
-$(document).on('change', '#minFollowing', function(event) {
+$(document).on('change', '#minFollowing', function (event) {
     d = document.getElementById("minFollowing").value;
     SendMessage("minFollowing", "minFollowing", d);
 
 
 });
-$(document).on('change', '#maxFollowing', function(event) {
+$(document).on('change', '#maxFollowing', function (event) {
     d = document.getElementById("maxFollowing").value;
     SendMessage("maxFollowing", "maxFollowing", d);
 
 
 });
-$(document).on('click', '#whitelist-user', function(event) {
+$(document).on('click', '#whitelist-user', function (event) {
     var user = prompt("Please enter the username exactly");
     if (user) {
         var split_users = user.split(",");
@@ -321,27 +322,27 @@ $(document).on('click', '#whitelist-user', function(event) {
 
 });
 
-$(document).on('click', '.remove-user-whitelist', function(event) {
+$(document).on('click', '.remove-user-whitelist', function (event) {
 
     RemoveWhitelistedUser(this);
 
 });
 
-$(document).on('click', '.add-whitelist-user', function(event) {
+$(document).on('click', '.add-whitelist-user', function (event) {
 
 
 
 
     AddUserToWhitelist(this);
 });
-$(document).on('click', '#whitelist-clear', function(event) {
+$(document).on('click', '#whitelist-clear', function (event) {
     SendMessage("ClearWhite", "", "");
 
 });
-$(document).on('click', '#clear-filter', function(event) {
+$(document).on('click', '#clear-filter', function (event) {
     SendMessage("ClearFilters", "user", "");
 });
-$(document).on('click', '#add-filter', function(event) {
+$(document).on('click', '#add-filter', function (event) {
     var new_blacklist = prompt("Please enter a word to add it to the fitlers:");
     if (new_blacklist && new_blacklist.includes(",")) {
         var split = new_blacklist.split(",");
@@ -399,7 +400,7 @@ $(document).on('click', '#add-filter', function(event) {
 });
 
 
-$(document).on('click', '#add-blacklist', function(event) {
+$(document).on('click', '#add-blacklist', function (event) {
     var new_blacklist = prompt("Please enter a username exactly to add it to the blacklist:");
     if (new_blacklist && new_blacklist.includes(",")) {
         var split = new_blacklist.split(",");
@@ -457,7 +458,7 @@ $(document).on('click', '#add-blacklist', function(event) {
 
 });
 
-async function sendSched() { 
+async function sendSched() {
 
     var now = new Date(stopDate);
     var daysOfYear = [];
@@ -526,20 +527,20 @@ function getFollowers() {
                 mode: mode
             };
             if (follow_count_num != 0) {
-             var data = {
-                followers: follow_count_num,
-                hour: d_num,
-                user_id: CurrentUser.user_id,
-                mode: "instagram"
-            };
+                var data = {
+                    followers: follow_count_num,
+                    hour: d_num,
+                    user_id: CurrentUser.user_id,
+                    mode: "instagram"
+                };
 
-             SendMessage("PostStats", "data", data);
+                SendMessage("PostStats", "data", data);
 
             }
 
         }
         var account_name = CurrentUser.username;
-       
+
 
 
     }
@@ -581,40 +582,40 @@ function roughSizeOfObject(object) {
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     $("#userLogin").show();
-  
+
     CreateComPort();
     $("#starttiktok").parent().removeClass("hide");
 
     $("#startinstagram").parent().addClass("active");
     $("#starttiktok").parent().removeClass("active");
-    $(document).on('click', '.remove-user-whitelist', function(event) {
+    $(document).on('click', '.remove-user-whitelist', function (event) {
 
         RemoveWhitelistedUser(this);
 
     });
-    $("#userLogin").click(function() {
+    $("#userLogin").on("click", function () {
         SendMessage("userLogin", "", "");
 
     });
     SendMessage("GetUserStats", "", "");
 
-    setInterval(function() {
-        if(hoursLeft > 0){
-        SendMessage("refreshStats", "", "");
-    }
+    setInterval(function () {
+        if (hoursLeft > 0) {
+            SendMessage("refreshStats", "", "");
+        }
         if (roughSizeOfObject(cloud_db) < 15000000) {
 
 
-          
-            
+
+
         }
 
     }, 1000 * 60 * 60)
 
-    setInterval(function() {
+    setInterval(function () {
 
         if (update_interval) {
             updated_cloud = true;
@@ -626,30 +627,30 @@ $(document).ready(function() {
 
 
 
-    $(document).on('click', '.add-whitelist-user', function(event) {
+    $(document).on('click', '.add-whitelist-user', function (event) {
 
 
 
 
         AddUserToWhitelist(this);
     });
-    $(document).on('click', '#whitelist-clear', function(event) {
+    $(document).on('click', '#whitelist-clear', function (event) {
         SendMessage("ClearWhite", "", "");
 
     });
-    $("#cloud-backup").click(function() {
+    $("#cloud-backup").on("click", function () {
 
         alert("Settings saved to cloud!");
         if (roughSizeOfObject(cloud_db) < 15000000) {
-           
+
         }
 
     });
-    $("#cloud-clear").click(function() {
+    $("#cloud-clear").on("click", function () {
         SendMessage("ResetAll", "", "");
 
         alert("Cloud backup cleared!");
-      
+
 
         SendMessage("ResetAll", "", "");
 
@@ -662,7 +663,7 @@ $(document).ready(function() {
 
     $('#version').attr('name', version);
     $("#sidebar-wrapper").show();
-    setTimeout(function() {
+    setTimeout(function () {
         var buttons = document.getElementsByTagName('div');
         for (var kk = 0; kk < buttons.length; kk++) {
 
@@ -674,7 +675,7 @@ $(document).ready(function() {
         $("#sidebar-wrapper").show();
 
     }, 5000);
-    setTimeout(function() {
+    setTimeout(function () {
         var buttons = document.getElementsByTagName('div');
         for (var kk = 0; kk < buttons.length; kk++) {
 
@@ -689,19 +690,19 @@ $(document).ready(function() {
 
 
 
-    $(".backup_picture").on("error", function() {
-        $(this).attr('src', 'icon.png');
+    $(".backup_picture").on("error", function () {
+        $(this).attr('src', iconPath);
     });
     user_plan = $("#plan").attr("name");
-    $("#sidebar-mosaic").click(function() {
+    $("#sidebar-mosaic").on("click", function () {
         var win = window.open('https://tagmosaic.com', '_blank');
         win.focus();
     });
     $("#overlay").show();
 
-    $("#sidebar-home-tinder2").click(function() {
+    $("#sidebar-home-tinder2").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("tinder.html", function() {
+        $(".content-wrapper").load("tinder.html", function () {
 
             dashboardMode = 3;
 
@@ -794,8 +795,8 @@ $(document).ready(function() {
 
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
-   
+            setTimeout(function () {
+
 
 
                 if (CurrentUser && CurrentUser.username) {
@@ -841,7 +842,7 @@ $(document).ready(function() {
 
 
 
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -882,14 +883,14 @@ $(document).ready(function() {
 
 
 
-            $("#comment_tags").on('itemAdded', function(event) {
+            $("#comment_tags").on('itemAdded', function (event) {
 
 
-                var tagsinputWidth = 200; 
-                var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); 
+                var tagsinputWidth = 200;
+                var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width();
                 if (tagWidth > tagsinputWidth) {
-                    var tagsText = event.item; 
-                    var res = tagsText.substr(0, 5); 
+                    var tagsText = event.item;
+                    var res = tagsText.substr(0, 5);
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
@@ -898,13 +899,13 @@ $(document).ready(function() {
                 var split_tags = tags;
 
                 SendMessage("AddCommentToListTinder", "TagName", tags);
-             
+
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
+            $("#comment_tags").on('itemRemoved', function (event) {
 
 
                 var tags = event.item;
@@ -924,7 +925,7 @@ $(document).ready(function() {
             });
 
 
-            $("#customRangeTinderComments").change(function() {
+            $("#customRangeTinderComments").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangeTinderComments").val()) > 1000) {
                         var input = document.getElementById("customRangeTinderComments");
@@ -946,7 +947,7 @@ $(document).ready(function() {
             });
 
 
-            $("#customRangeTinderLikes").change(function() {
+            $("#customRangeTinderLikes").change(function () {
                 if (paid_sub == false) {
                     if (parseInt($("#customRangeTinderLikes").val()) > 1000) {
                         var input = document.getElementById("customRangeTinderLikes");
@@ -967,7 +968,7 @@ $(document).ready(function() {
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
+            $("#slow").on("click", function () {
                 var user_plan = $("#plan").attr("name");
 
                 SendMessage("SetSpeedTinder", "Num", 3);
@@ -976,7 +977,7 @@ $(document).ready(function() {
                 $("#medium").removeClass('active');
 
             });
-            $("#medium").click(function() {
+            $("#medium").on("click", function () {
                 var user_plan = $("#plan").attr("name");
 
 
@@ -988,7 +989,7 @@ $(document).ready(function() {
                 $("#fast").removeClass('active');
 
             });
-            $("#fast").click(function() {
+            $("#fast").on("click", function () {
                 var user_plan = $("#plan").attr("name");
 
                 SendMessage("SetSpeedTinder", "Num", 1);
@@ -1001,15 +1002,15 @@ $(document).ready(function() {
 
             });
 
-            $("#set-follow-tinder-check").click(function() {
+            $("#set-follow-tinder-check").on("click", function () {
                 SendMessage("SetFollowTinder", "Value", $(this).is(':checked'));
 
             });
-            $("#set-like-tinder-check").click(function() {
+            $("#set-like-tinder-check").on("click", function () {
                 SendMessage("SetLikeTinder", "Value", $(this).is(':checked'));
 
             });
-            $("#set-follow-check").click(function() {
+            $("#set-follow-check").on("click", function () {
                 $("#set-unfollow-check").prop("checked", false);
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
@@ -1018,7 +1019,7 @@ $(document).ready(function() {
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
                 if ($(this).is(':checked')) {
@@ -1029,7 +1030,7 @@ $(document).ready(function() {
             });
 
 
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
                 SetStoryValue($(this).is(':checked'));
 
 
@@ -1046,7 +1047,7 @@ $(document).ready(function() {
                 }
 
             });
-            $("#set-comment-check").click(function() {
+            $("#set-comment-check").on("click", function () {
                 SetCommentValue($(this).is(':checked'));
 
                 if ($(this).is(':checked')) {
@@ -1055,17 +1056,17 @@ $(document).ready(function() {
                 }
 
             });
-            $(document).on('click', '.remove-user-collect', function() {
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
 
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagTikTok(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
+            $(document).on('click', '.remove-comment-collect', function () {
 
                 $(this).closest("tr").remove();
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
@@ -1075,7 +1076,7 @@ $(document).ready(function() {
 
 
 
-            $("#set-unfollow-check").click(function() {
+            $("#set-unfollow-check").on("click", function () {
                 $("#set-follow-check").prop("checked", false);
                 SetFollowValue(false);
 
@@ -1108,18 +1109,18 @@ $(document).ready(function() {
 
         });
     });
-    $("#sidebar-home-crm").click(function() {
+    $("#sidebar-home-crm").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("crm.html", function() {
+        $(".content-wrapper").load("crm.html", function () {
 
             dashboardMode = 6;
-            $("#validateInstagramFollowers").click(function() {
+            $("#validateInstagramFollowers").on("click", function () {
 
                 SendMessage("validateInstagramFollowers", "Num", "DisplayLikesNum");
 
             });
 
-            $("#validateFollowers").click(function() {
+            $("#validateFollowers").on("click", function () {
                 var followers_list = prompt("Enter a comma seperated list of followers to rank targets[dogs, dogsofinstagram, dog]:");
                 var splits = followers_list.split(",");
                 for (var kk = 0; kk < splits.length; kk++) {
@@ -1148,7 +1149,7 @@ $(document).ready(function() {
             });
 
 
-            $("#validateSales").click(function() {
+            $("#validateSales").on("click", function () {
                 var sales_list = prompt("Enter a comma seperated list of sales to rank targets(dogs, 10, dogsofinstagram, 20, dog, 30):");
                 var splits = sales_list.split(",");
                 for (var kk = 0; kk < splits.length; kk++) {
@@ -1184,9 +1185,9 @@ $(document).ready(function() {
 
 
 
-    $("#sidebar-home-link2").click(function() {
+    $("#sidebar-home-link2").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("linkedin.html", function() {
+        $(".content-wrapper").load("linkedin.html", function () {
 
             dashboardMode = 5;
 
@@ -1195,19 +1196,26 @@ $(document).ready(function() {
                 data2 = [];
             }
             var chart_data = null;
+
             chart_data = [];
+
             var minimum = 10000;
+
             var labels = [];
+
             var min = 10000000;
+
             var max = 0;
 
-
             for (var index = 0; index < data2.length; index++) {
+
                 var obj = data2[index];
                 if (CurrentUser && obj.user_id == CurrentUser.user_id) {
+
                     chart_data.push(
                         parseInt(obj.followers)
                     );
+
                     if (obj.followers > max) {
                         max = obj.followers;
                     }
@@ -1215,6 +1223,7 @@ $(document).ready(function() {
                     if (obj.followers < min) {
                         min = obj.followers;
                     }
+
                     labels.push(index);
                     if (parseInt(obj.followers) < minimum) {
                         minimum = parseInt(obj.followers);
@@ -1224,6 +1233,7 @@ $(document).ready(function() {
             if (chart_data.length > 1) {
                 $('#growth').html('You grown ' + max - min + ' followers using Instoo');
             }
+
             let config = {
                 type: 'line',
                 data: {
@@ -1271,23 +1281,19 @@ $(document).ready(function() {
                 }
             };
 
-
             mode = "linkedin";
             gotAnalytics = false;
 
-
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
 
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
-
 
             $('#version').attr('name', version);
             if (user_plan == "lifetime" || user_plan == "linkstories" || user_plan == "instoo2" || user_plan == "linkyear" || user_plan == "instoogold" || user_plan == "instooyearly" || user_plan == "instoopro" || user_plan == "instoogold2") {
@@ -1297,13 +1303,9 @@ $(document).ready(function() {
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
 
-
             }
 
-           
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -1314,31 +1316,29 @@ $(document).ready(function() {
                     if (paid_sub) {
 
                         SendMessage("SetSpeedLinkedin", "Speed", 1);
-
                     } else {
                         buySub();
                     }
                 }
 
                 if (val == "Slow") {
+
                     $("#slow").addClass('active');
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeedLinkedin", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
+
                     $("#medium").addClass('active');
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeedLinkedin", "Speed", 2);
-
-
                 }
 
             });
+
             $('#media_accounts').tagsinput({
                 trimValue: true
             });
@@ -1346,6 +1346,7 @@ $(document).ready(function() {
             $('#media_tags').tagsinput({
                 trimValue: true
             });
+
             $('#media_tags2').tagsinput({
                 trimValue: true
             });
@@ -1362,8 +1363,7 @@ $(document).ready(function() {
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -1372,7 +1372,6 @@ $(document).ready(function() {
                     var res = tagsText.substr(0, 5); // Here I'm displaying only first 5 Characters.(You can give any number)
                     $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -1385,32 +1384,26 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
+            $("#comment_tags").on('itemAdded', function (event) {
 
-            $("#comment_tags").on('itemAdded', function(event) {
-
-
-                var tagsinputWidth = 200; 
-                var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); 
+                var tagsinputWidth = 200;
+                var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width();
                 if (tagWidth > tagsinputWidth) {
-                    var tagsText = event.item; 
-                    var res = tagsText.substr(0, 5); 
+                    var tagsText = event.item;
+                    var res = tagsText.substr(0, 5);
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags;
 
                 SendMessage("AddCommentToListLinkedin", "TagName", tags);
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
@@ -1425,10 +1418,8 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags").on('itemRemoved', function(event) {
-
+            $("#media_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -1442,16 +1433,13 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-            $("#customRangeLinkedinFollows").change(function() {
+            $("#customRangeLinkedinFollows").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangeLinkedinFollows").val()) > 1000) {
                         var input = document.getElementById("customRangeLinkedinFollows");
                         input.value = 1000;
-
                     }
                 }
 
@@ -1460,59 +1448,56 @@ $(document).ready(function() {
 
                 $("#follow_Linkedin_set").html("Follows/day: " + $("#customRangeLinkedinFollows").val());
 
-
                 SendMessage("UpdateLinkedinFollowLimit", "limit", follow_Linkedin_speed);
-
-
-
 
             });
 
+            $("#customRangeLinkedinLikes").change(function () {
 
-            $("#customRangeLinkedinLikes").change(function() {
                 if (paid_sub == false) {
+
                     if (parseInt($("#customRangeLinkedinLikes").val()) > 1000) {
                         var input = document.getElementById("customRangeLinkedinLikes");
                         input.value = 1000;
-
                     }
                 }
-
 
                 var follow_Linkedin_speed = parseInt($("#customRange1").val());
                 var like_Linkedin_speed = parseInt($("#customRangeLinkedinLikes").val());
 
-
                 $("#like_Linkedin_set").html("Likes/day: " + $("#customRangeLinkedinLikes").val());
 
                 SendMessage("UpdateLinkedinLikeLimit", "limit", like_Linkedin_speed);
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
 
-            $("#export_linkedin").click(function() {
+            $("#export_linkedin").on("click", function () {
+
                 var json = linkedin_data
                 for (var kk = 0; kk < json.length; kk++) {
                     json[kk].html = "";
                 }
 
-
                 var fields = Object.keys(json)
-                var replacer = function(key, value) {
+                var replacer = function (key, value) {
                     return value === null ? '' : value
                 }
-                var csv = json.map(function(row) {
-                    return fields.map(function(fieldName) {
+
+                var csv = json.map(function (row) {
+                    return fields.map(function (fieldName) {
                         return JSON.stringify(row[fieldName], replacer)
                     }).join(',')
                 })
-                csv.unshift(fields.join(',')) // add header column
-                csv = csv.join('\r\n');
-                SendMessage("DownloadJson", "url", linkedin_data);
 
+                csv.unshift(fields.join(',')) // add header column
+
+                csv = csv.join('\r\n');
+
+                SendMessage("DownloadJson", "url", linkedin_data);
             });
-            $("#slow").click(function() {
+
+            $("#slow").on("click", function () {
                 var user_plan = $("#plan").attr("name");
 
                 SendMessage("SetSpeedLinkedin", "Num", 3);
@@ -1521,40 +1506,36 @@ $(document).ready(function() {
                 $("#medium").removeClass('active');
 
             });
-            $("#medium").click(function() {
+
+            $("#medium").on("click", function () {
                 var user_plan = $("#plan").attr("name");
-
-
-
 
                 SendMessage("SetSpeedLinkedin", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
                 SendMessage("SetSpeedLinkedin", "Num", 1);
-
-
 
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
 
-            $("#set-follow-Linkedin-check").click(function() {
+            $("#set-follow-Linkedin-check").on("click", function () {
                 SendMessage("SetFollowLinkedin", "Value", $(this).is(':checked'));
-
             });
-            $("#set-like-Linkedin-check").click(function() {
+
+            $("#set-like-Linkedin-check").on("click", function () {
                 SendMessage("SetLikeLinkedin", "Value", $(this).is(':checked'));
-
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
@@ -1563,82 +1544,101 @@ $(document).ready(function() {
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
-            $("#set-Linkedin-check").click(function() {
+            $("#set-Linkedin-check").on("click", function () {
                 SetLinkedinValue($(this).is(':checked'));
-                $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> To automate Linkedin, open Linkedin.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.<br> Linkedin is growing 2x faster than Instagram, so it's a useful platform to crosspromote both. Simply add a link to your Instagram in Linkedin bios/videos, or add Linkedin links in Instagram. Let us know how this new feature works for you! :)<br></div>");
+                $("#errors").html(`
+                    <div class='alert alert-success alert-dismissible' role='alert'>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button> To automate Linkedin, open Linkedin.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.
+                        <br> 
+                        Linkedin is growing 2x faster than Instagram, so it's a useful platform to cross promote both. Simply add a link to your Instagram in Linkedin bios/videos, or add Linkedin links in Instagram. Let us know how this new feature works for you! :)
+                        <br>
+                        </div>`);
 
             });
 
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
+
                 SetStoryValue($(this).is(':checked'));
 
-
                 if ($(this).is(':checked') != true) {
+
                     $("#set-like-check").prop("checked", false);
                     SetLikeValue(false);
+
                     $("#set-follow-check").prop("checked", false);
                     SetFollowValue(false);
 
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
+
                     $("#set-comment-check").prop("checked", false);
                     SetCommentValue(false);
                 }
-
             });
-            $("#set-comment-check").click(function() {
+
+            $("#set-comment-check").on("click", function () {
+
                 SetCommentValue($(this).is(':checked'));
 
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
+
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagLinkedin(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
+
+            $(document).on('click', '.remove-comment-collect', function () {
 
                 $(this).closest("tr").remove();
+
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
+
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
             });
 
+            $("#set-unfollow-check").on("click", function () {
 
-
-
-            $("#set-unfollow-check").click(function() {
                 $("#set-follow-check").prop("checked", false);
+
                 SetFollowValue(false);
 
                 SetUnfollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
+
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -1656,14 +1656,12 @@ $(document).ready(function() {
             //getFollowers();
 
             SetActiveSidebarItem("#sidebar-home-link2");
-
         });
     });
 
-
-    $("#sidebar-home-tiktok").click(function() {
+    $("#sidebar-home-tiktok").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("tiktok.html", function() {
+        $(".content-wrapper").load("tiktok.html", function () {
 
             dashboardMode = 1;
 
@@ -1671,6 +1669,7 @@ $(document).ready(function() {
             if ($("#data2").attr("name") && $("#data2").attr("name").length > 2) {
                 data2 = [];
             }
+
             var chart_data = null;
             chart_data = [];
             var minimum = 10000;
@@ -1678,13 +1677,16 @@ $(document).ready(function() {
             var min = 10000000;
             var max = 0;
 
-
             for (var index = 0; index < data2.length; index++) {
+                
                 var obj = data2[index];
+                
                 if (CurrentUser && obj.user_id == CurrentUser.user_id) {
+
                     chart_data.push(
                         parseInt(obj.followers)
                     );
+
                     if (obj.followers > max) {
                         max = obj.followers;
                     }
@@ -1698,9 +1700,11 @@ $(document).ready(function() {
                     }
                 }
             }
+
             if (chart_data.length > 1) {
                 $('#growth').html('You grown ' + max - min + ' followers using Instoo');
             }
+
             let config = {
                 type: 'line',
                 data: {
@@ -1748,34 +1752,29 @@ $(document).ready(function() {
                 }
             };
 
-
             mode = "tiktok";
             gotAnalytics = false;
 
-
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
-
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
 
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
 
-
             $('#version').attr('name', version);
+
             if (user_plan == "lifetime" || user_plan == "linkstories" || user_plan == "instoo2" || user_plan == "linkyear" || user_plan == "instoogold" || user_plan == "instooyearly" || user_plan == "instoopro" || user_plan == "instoogold2") {
+
                 speed_limit = 300;
 
                 $("#customRange1").attr("max", speed_limit);
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
-
-
             }
 
             $('#media_accounts').tagsinput({
@@ -1785,6 +1784,7 @@ $(document).ready(function() {
             $('#media_tags').tagsinput({
                 trimValue: true
             });
+
             $('#media_tags2').tagsinput({
                 trimValue: true
             });
@@ -1799,9 +1799,7 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -1812,36 +1810,31 @@ $(document).ready(function() {
                     if (paid_sub) {
 
                         SendMessage("SetSpeedTikTok", "Speed", 1);
-
                     } else {
                         buySub();
                     }
                 }
 
                 if (val == "Slow") {
+
                     $("#slow").addClass('active');
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeedTikTok", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
+
                     $("#medium").addClass('active');
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeedTikTok", "Speed", 2);
-
-
                 }
-
             });
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -1852,11 +1845,11 @@ $(document).ready(function() {
                     $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags.split("#");
 
                 for (var kk = 0; kk < split_tags.length; kk++) {
+
                     if (split_tags[kk].split('#').join('').split(',').join('').split(' ').join('').length > 0) {
                         SendMessage("AddTagToListTikTok", "TagName", split_tags[kk].split('#').join('').split(',').join('').split(' ').join(''));
                         global_tags.push(split_tags[kk].split('#').join('').split(',').join('').split(' ').join(''));
@@ -1864,12 +1857,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-            $("#comment_tags").on('itemAdded', function(event) {
-
+            $("#comment_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -1880,18 +1870,14 @@ $(document).ready(function() {
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags;
 
                 SendMessage("AddCommentToListTikTok", "TagName", tags);
-
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
@@ -1906,13 +1892,12 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags").on('itemRemoved', function(event) {
-
+            $("#media_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
+
                 for (var kk = 0; kk < split_tags.length; kk++) {
 
                     SendMessage("RemoveTagFromListTikTok", "TagName", split_tags[kk].split('#').join(''));
@@ -1923,16 +1908,13 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-            $("#customRangeTikTokFollows").change(function() {
+            $("#customRangeTikTokFollows").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangeTikTokFollows").val()) > 1000) {
                         var input = document.getElementById("customRangeTikTokFollows");
                         input.value = 1000;
-
                     }
                 }
 
@@ -1941,106 +1923,92 @@ $(document).ready(function() {
 
                 $("#follow_tiktok_set").html("Follows/day: " + $("#customRangeTikTokFollows").val());
 
-
                 SendMessage("UpdateTikTokFollowLimit", "limit", follow_tiktok_speed);
-
-
-
-
             });
 
-
-            $("#customRangeTikTokLikes").change(function() {
+            $("#customRangeTikTokLikes").change(function () {
                 if (paid_sub == false) {
                     if (parseInt($("#customRangeTikTokLikes").val()) > 1000) {
                         var input = document.getElementById("customRangeTikTokLikes");
                         input.value = 1000;
-
                     }
                 }
-
 
                 var follow_tiktok_speed = parseInt($("#customRange1").val());
                 var like_tiktok_speed = parseInt($("#customRangeTikTokLikes").val());
 
-
                 $("#like_tiktok_set").html("Likes/day: " + $("#customRangeTikTokLikes").val());
 
                 SendMessage("UpdateTikTokLikeLimit", "limit", like_tiktok_speed);
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
-                var user_plan = $("#plan").attr("name");
+            $("#slow").on("click", function () {
 
+                var user_plan = $("#plan").attr("name");
                 SendMessage("SetSpeedTikTok", "Num", 3);
                 $("#slow").addClass('active');
                 $("#fast").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
-            $("#medium").click(function() {
+
+            $("#medium").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
-
-
                 SendMessage("SetSpeedTikTok", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
                 SendMessage("SetSpeedTikTok", "Num", 1);
-
-
-
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
 
-            $("#set-follow-tiktok-check").click(function() {
+            $("#set-follow-tiktok-check").on("click", function () {
                 SendMessage("SetFollowTikTok", "Value", $(this).is(':checked'));
-
             });
-            $("#set-like-tiktok-check").click(function() {
+
+            $("#set-like-tiktok-check").on("click", function () {
                 SendMessage("SetLikeTikTok", "Value", $(this).is(':checked'));
-
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
+
                 SetUnfollowValue(false);
+
                 SetFollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+            
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
-            $("#set-tiktok-check").click(function() {
+            $("#set-tiktok-check").on("click", function () {
                 SetTikTokValue($(this).is(':checked'));
                 $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> To automate TikTok, open tiktok.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.<br> Tiktok is growing 2x faster than Instagram, so it's a useful platform to crosspromote both. Simply add a link to your Instagram in Tiktok bios/videos, or add TikTok links in Instagram. Let us know how this new feature works for you! :)<br></div>");
-
             });
 
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
                 SetStoryValue($(this).is(':checked'));
-
 
                 if ($(this).is(':checked') != true) {
                     $("#set-like-check").prop("checked", false);
@@ -2053,51 +2021,45 @@ $(document).ready(function() {
                     $("#set-comment-check").prop("checked", false);
                     SetCommentValue(false);
                 }
-
             });
-            $("#set-comment-check").click(function() {
+            $("#set-comment-check").on("click", function () {
                 SetCommentValue($(this).is(':checked'));
-
                 if ($(this).is(':checked')) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagTikTok(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
 
+            $(document).on('click', '.remove-comment-collect', function () {
                 $(this).closest("tr").remove();
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
             });
 
+            $("#set-unfollow-check").on("click", function () {
 
-
-
-            $("#set-unfollow-check").click(function() {
                 $("#set-follow-check").prop("checked", false);
                 SetFollowValue(false);
-
                 SetUnfollowValue($(this).is(':checked'));
                 if ($(this).is(':checked')) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -2112,15 +2074,13 @@ $(document).ready(function() {
             $("#story_set").html("Stories/day: " + maxStories);
             $("#comment_set").html("DMs/day: " + maxComments);
 
-
             SetActiveSidebarItem("#sidebar-home-tiktok");
-
         });
     });
 
-    $("#sidebar-home-facebook").click(function() {
+    $("#sidebar-home-facebook").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("facebook.html", function() {
+        $(".content-wrapper").load("facebook.html", function () {
 
             dashboardMode = 7;
 
@@ -2205,26 +2165,18 @@ $(document).ready(function() {
                 }
             };
 
-           
-
             mode = "facebook";
             gotAnalytics = false;
 
-
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
-             
-
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
-
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
-
 
             $('#version').attr('name', version);
             if (user_plan == "lifetime" || user_plan == "linkstories" || user_plan == "instoo2" || user_plan == "linkyear" || user_plan == "instoogold" || user_plan == "instooyearly" || user_plan == "instoopro" || user_plan == "instoogold2") {
@@ -2233,8 +2185,6 @@ $(document).ready(function() {
                 $("#customRange1").attr("max", speed_limit);
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
-
-
             }
 
             $('#media_accounts').tagsinput({
@@ -2244,6 +2194,7 @@ $(document).ready(function() {
             $('#media_tags').tagsinput({
                 trimValue: true
             });
+
             $('#media_tags2').tagsinput({
                 trimValue: true
             });
@@ -2258,12 +2209,12 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
+
                 if (val == "Fast") {
+
                     $("#fast").addClass('active');
                     $("#slow").removeClass('active');
                     $("#medium").removeClass('active');
@@ -2271,7 +2222,6 @@ $(document).ready(function() {
                     if (paid_sub) {
 
                         SendMessage("SetSpeedfacebook", "Speed", 1);
-
                     } else {
                         buySub();
                     }
@@ -2282,8 +2232,6 @@ $(document).ready(function() {
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeedfacebook", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
@@ -2291,16 +2239,12 @@ $(document).ready(function() {
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeedfacebook", "Speed", 2);
-
-
                 }
 
             });
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -2326,8 +2270,7 @@ $(document).ready(function() {
 
             });
 
-
-            $("#media_accounts").on('itemAdded', function(event) {
+            $("#media_accounts").on('itemAdded', function (event) {
                 console.log("CODES THAT RUS 2");
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
@@ -2338,7 +2281,6 @@ $(document).ready(function() {
                     var res = tagsText.substr(0, 5); // Here I'm displaying only first 5 Characters.(You can give any number)
                     $('#media_accounts').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -2354,7 +2296,7 @@ $(document).ready(function() {
 
             });
 
-            $("#comment_tags").on('itemAdded', function(event) {
+            $("#comment_tags").on('itemAdded', function (event) {
 
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
@@ -2366,18 +2308,15 @@ $(document).ready(function() {
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags;
 
                 SendMessage("AddCommentToListfacebook", "TagName", tags);
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
@@ -2392,10 +2331,8 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags").on('itemRemoved', function(event) {
-
+            $("#media_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -2409,11 +2346,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-            $("#customRangefacebookFollows").change(function() {
+            $("#customRangefacebookFollows").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangefacebookFollows").val()) > 1000) {
                         var input = document.getElementById("customRangefacebookFollows");
@@ -2427,113 +2362,103 @@ $(document).ready(function() {
 
                 $("#follow_facebook_set").html("Friends/day: " + $("#customRangefacebookFollows").val());
 
-
                 SendMessage("UpdatefacebookFollowLimit", "limit", follow_facebook_speed);
-
-
-
 
             });
 
-
-            $("#customRangefacebookLikes").change(function() {
+            $("#customRangefacebookLikes").change(function () {
                 if (paid_sub == false) {
                     if (parseInt($("#customRangefacebookLikes").val()) > 1000) {
                         var input = document.getElementById("customRangefacebookLikes");
                         input.value = 1000;
-
                     }
                 }
-
 
                 var follow_facebook_speed = parseInt($("#customRange1").val());
                 var like_facebook_speed = parseInt($("#customRangefacebookLikes").val());
 
-
                 $("#like_facebook_set").html("Likes/day: " + $("#customRangefacebookLikes").val());
 
                 SendMessage("UpdatefacebookLikeLimit", "limit", like_facebook_speed);
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
-                var user_plan = $("#plan").attr("name");
+            $("#slow").on("click", function () {
 
+                var user_plan = $("#plan").attr("name");
                 SendMessage("SetSpeedfacebook", "Num", 3);
                 $("#slow").addClass('active');
                 $("#fast").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
-            $("#medium").click(function() {
+
+            $("#medium").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
-
-
                 SendMessage("SetSpeedfacebook", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
                 SendMessage("SetSpeedfacebook", "Num", 1);
-
-
-
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
 
-            $("#set-follow-facebook-check").click(function() {
+            $("#set-follow-facebook-check").on("click", function () {
                 SendMessage("SetFollowfacebook", "Value", $(this).is(':checked'));
-
             });
-            $("#set-like-facebook-check").click(function() {
+
+            $("#set-like-facebook-check").on("click", function () {
                 SendMessage("SetLikefacebook", "Value", $(this).is(':checked'));
-
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
-            $("#set-facebook-check").click(function() {
+            $("#set-facebook-check").on("click", function () {
+
                 SetfacebookValue($(this).is(':checked'));
-                $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> To automate facebook, open facebook.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.<br> facebook is growing 2x faster than Instagram, so it's a useful platform to crosspromote both. Simply add a link to your Instagram in facebook bios/videos, or add facebook links in Instagram. Let us know how this new feature works for you! :)<br></div>");
 
+                $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> To automate facebook, open facebook.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.<br> facebook is growing 2x faster than Instagram, so it's a useful platform to crosspromote both. Simply add a link to your Instagram in facebook bios/videos, or add facebook links in Instagram. Let us know how this new feature works for you! :)<br></div>");
             });
 
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
+
                 SetStoryValue($(this).is(':checked'));
 
-
                 if ($(this).is(':checked') != true) {
+
                     $("#set-like-check").prop("checked", false);
                     SetLikeValue(false);
                     $("#set-follow-check").prop("checked", false);
                     SetFollowValue(false);
-
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
                     $("#set-comment-check").prop("checked", false);
@@ -2541,49 +2466,50 @@ $(document).ready(function() {
                 }
 
             });
-            $("#set-comment-check").click(function() {
+
+            $("#set-comment-check").on("click", function () {
+
                 SetCommentValue($(this).is(':checked'));
 
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagfacebook(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
 
+            $(document).on('click', '.remove-comment-collect', function () {
                 $(this).closest("tr").remove();
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
             });
 
+            $("#set-unfollow-check").on("click", function () {
 
-
-
-            $("#set-unfollow-check").click(function() {
                 $("#set-follow-check").prop("checked", false);
                 SetFollowValue(false);
-
                 SetUnfollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -2601,14 +2527,12 @@ $(document).ready(function() {
             //getFollowers();
 
             SetActiveSidebarItem("#sidebar-home-facebook");
-
         });
     });
 
-
-    $("#sidebar-home-pinterest").click(function() {
+    $("#sidebar-home-pinterest").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("pinterest.html", function() {
+        $(".content-wrapper").load("pinterest.html", function () {
 
             dashboardMode = 6;
 
@@ -2696,17 +2620,14 @@ $(document).ready(function() {
             mode = "pinterest";
             gotAnalytics = false;
 
-
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
-
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
 
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
 
@@ -2729,6 +2650,7 @@ $(document).ready(function() {
             $('#media_tags').tagsinput({
                 trimValue: true
             });
+
             $('#media_tags2').tagsinput({
                 trimValue: true
             });
@@ -2743,9 +2665,7 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -2767,8 +2687,6 @@ $(document).ready(function() {
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeedPinterest", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
@@ -2776,16 +2694,13 @@ $(document).ready(function() {
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeedPinterest", "Speed", 2);
-
-
                 }
 
             });
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -2795,7 +2710,6 @@ $(document).ready(function() {
                     var res = tagsText.substr(0, 5); // Here I'm displaying only first 5 Characters.(You can give any number)
                     $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -2812,8 +2726,7 @@ $(document).ready(function() {
             });
 
 
-            $("#comment_tags").on('itemAdded', function(event) {
-
+            $("#comment_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -2824,19 +2737,16 @@ $(document).ready(function() {
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags;
 
                 SendMessage("AddCommentToListPinterest", "TagName", tags);
-       
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
@@ -2851,10 +2761,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags").on('itemRemoved', function(event) {
 
+            $("#media_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -2871,13 +2780,11 @@ $(document).ready(function() {
 
             });
 
-
-            $("#customRangePinterestFollows").change(function() {
+            $("#customRangePinterestFollows").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangePinterestFollows").val()) > 1000) {
                         var input = document.getElementById("customRangePinterestFollows");
                         input.value = 1000;
-
                     }
                 }
 
@@ -2886,37 +2793,27 @@ $(document).ready(function() {
 
                 $("#follow_pinterest_set").html("Follows/day: " + $("#customRangePinterestFollows").val());
 
-
                 SendMessage("UpdatePinterestFollowLimit", "limit", follow_pinterest_speed);
-
-
-
-
             });
 
-
-            $("#customRangePinterestLikes").change(function() {
+            $("#customRangePinterestLikes").change(function () {
                 if (paid_sub == false) {
                     if (parseInt($("#customRangePinterestLikes").val()) > 1000) {
                         var input = document.getElementById("customRangePinterestLikes");
                         input.value = 1000;
-
                     }
                 }
-
 
                 var follow_pinterest_speed = parseInt($("#customRange1").val());
                 var like_pinterest_speed = parseInt($("#customRangePinterestLikes").val());
 
-
                 $("#like_pinterest_set").html("Likes/day: " + $("#customRangePinterestLikes").val());
 
                 SendMessage("UpdatePinterestLikeLimit", "limit", like_pinterest_speed);
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
+            $("#slow").on("click", function () {
                 var user_plan = $("#plan").attr("name");
 
                 SendMessage("SetSpeedPinterest", "Num", 3);
@@ -2925,120 +2822,115 @@ $(document).ready(function() {
                 $("#medium").removeClass('active');
 
             });
-            $("#medium").click(function() {
+            $("#medium").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
-
-
                 SendMessage("SetSpeedPinterest", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
                 SendMessage("SetSpeedPinterest", "Num", 1);
-
-
-
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
 
-            $("#set-follow-pinterest-check").click(function() {
+            $("#set-follow-pinterest-check").on("click", function () {
                 SendMessage("SetFollowPinterest", "Value", $(this).is(':checked'));
-
             });
-            $("#set-like-pinterest-check").click(function() {
+            
+            $("#set-like-pinterest-check").on("click", function () {
                 SendMessage("SetLikePinterest", "Value", $(this).is(':checked'));
-
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
+
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
                 if ($(this).is(':checked')) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
+            $("#set-story-check").on("click", function () {
 
-
-            $("#set-story-check").click(function() {
                 SetStoryValue($(this).is(':checked'));
 
-
                 if ($(this).is(':checked') != true) {
+
                     $("#set-like-check").prop("checked", false);
                     SetLikeValue(false);
+
                     $("#set-follow-check").prop("checked", false);
                     SetFollowValue(false);
 
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
+
                     $("#set-comment-check").prop("checked", false);
                     SetCommentValue(false);
                 }
-
             });
-            $("#set-comment-check").click(function() {
+
+            $("#set-comment-check").on("click", function () {
                 SetCommentValue($(this).is(':checked'));
 
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagPinterest(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
 
+            $(document).on('click', '.remove-comment-collect', function () {
                 $(this).closest("tr").remove();
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
             });
 
-
-
-
-            $("#set-unfollow-check").click(function() {
+            $("#set-unfollow-check").on("click", function () {
                 $("#set-follow-check").prop("checked", false);
                 SetFollowValue(false);
-
                 SetUnfollowValue($(this).is(':checked'));
+                
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -3056,15 +2948,12 @@ $(document).ready(function() {
             //getFollowers();
 
             SetActiveSidebarItem("#sidebar-home-pinterest");
-
         });
     });
 
-
-
-    $("#sidebar-home-tw").click(function() {
+    $("#sidebar-home-tw").on("click", function () {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("twitter.html", function() {
+        $(".content-wrapper").load("twitter.html", function () {
 
             dashboardMode = 2;
 
@@ -3078,7 +2967,6 @@ $(document).ready(function() {
             var labels = [];
             var min = 10000000;
             var max = 0;
-
 
             for (var index = 0; index < data2.length; index++) {
                 var obj = data2[index];
@@ -3149,23 +3037,19 @@ $(document).ready(function() {
                 }
             };
 
-
             mode = "twitter";
             gotAnalytics = false;
 
-
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
 
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
-
 
             $('#version').attr('name', version);
             if (user_plan == "lifetime" || user_plan == "linkstories" || user_plan == "instoo2" || user_plan == "linkyear" || user_plan == "instoogold" || user_plan == "instooyearly" || user_plan == "instoopro" || user_plan == "instoogold2") {
@@ -3174,8 +3058,6 @@ $(document).ready(function() {
                 $("#customRange1").attr("max", speed_limit);
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
-
-
             }
 
             $('#media_accounts').tagsinput({
@@ -3185,6 +3067,7 @@ $(document).ready(function() {
             $('#media_tags').tagsinput({
                 trimValue: true
             });
+
             $('#media_tags2').tagsinput({
                 trimValue: true
             });
@@ -3199,9 +3082,7 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -3212,7 +3093,6 @@ $(document).ready(function() {
                     if (paid_sub) {
 
                         SendMessage("SetSpeedTwitter", "Speed", 1);
-
                     } else {
                         buySub();
                     }
@@ -3223,8 +3103,6 @@ $(document).ready(function() {
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeedTwitter", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
@@ -3232,16 +3110,13 @@ $(document).ready(function() {
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeedTwitter", "Speed", 2);
-
-
                 }
 
             });
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -3251,7 +3126,6 @@ $(document).ready(function() {
                     var res = tagsText.substr(0, 5); // Here I'm displaying only first 5 Characters.(You can give any number)
                     $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -3268,8 +3142,7 @@ $(document).ready(function() {
             });
 
 
-            $("#comment_tags").on('itemAdded', function(event) {
-
+            $("#comment_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -3286,13 +3159,10 @@ $(document).ready(function() {
 
                 SendMessage("AddCommentToListTwitter", "TagName", tags);
 
-
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
@@ -3309,8 +3179,7 @@ $(document).ready(function() {
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
             });
-            $("#media_tags").on('itemRemoved', function(event) {
-
+            $("#media_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -3324,16 +3193,13 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-            $("#customRangeTwitterFollows").change(function() {
+            $("#customRangeTwitterFollows").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRangeTwitterFollows").val()) > 1000) {
                         var input = document.getElementById("customRangeTwitterFollows");
                         input.value = 1000;
-
                     }
                 }
 
@@ -3342,141 +3208,134 @@ $(document).ready(function() {
 
                 $("#follow_Twitter_set").html("Retweets/day: " + $("#customRangeTwitterFollows").val());
 
-
                 SendMessage("UpdateTwitterFollowLimit", "limit", follow_Twitter_speed);
-
-
-
-
             });
 
+            $("#customRangeTwitterLikes").change(function () {
 
-            $("#customRangeTwitterLikes").change(function() {
                 if (paid_sub == false) {
+
                     if (parseInt($("#customRangeTwitterLikes").val()) > 1000) {
+
                         var input = document.getElementById("customRangeTwitterLikes");
                         input.value = 1000;
-
                     }
                 }
-
 
                 var follow_Twitter_speed = parseInt($("#customRange1").val());
                 var like_Twitter_speed = parseInt($("#customRangeTwitterLikes").val());
 
-
                 $("#like_Twitter_set").html("Likes/day: " + $("#customRangeTwitterLikes").val());
 
                 SendMessage("UpdateTwitterLikeLimit", "limit", like_Twitter_speed);
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
-                var user_plan = $("#plan").attr("name");
+            $("#slow").on("click", function () {
 
+                var user_plan = $("#plan").attr("name");
                 SendMessage("SetSpeedTwitter", "Num", 3);
                 $("#slow").addClass('active');
                 $("#fast").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
-            $("#medium").click(function() {
+
+            $("#medium").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
-
-
                 SendMessage("SetSpeedTwitter", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
                 SendMessage("SetSpeedTwitter", "Num", 1);
-
-
-
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
-
             });
 
-            $("#set-follow-twitter-check").click(function() {
+            $("#set-follow-twitter-check").on("click", function () {
                 SendMessage("SetFollowTwitter", "Value", $(this).is(':checked'));
                 ////////////console.log();
-
             });
-            $("#set-like-twitter-check").click(function() {
+
+            $("#set-like-twitter-check").on("click", function () {
                 SendMessage("SetLikeTwitter", "Value", $(this).is(':checked'));
-
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
+
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
             });
-            $("#set-like-check").click(function() {
+
+            $("#set-like-check").on("click", function () {
 
                 SetLikeValue($(this).is(':checked'));
+                
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
-            $("#set-twitter-check").click(function() {
+            $("#set-twitter-check").on("click", function () {
                 SetTwitterValue($(this).is(':checked'));
                 $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> To automate Twitter, open Twitter.com in a new tab, then log in. Instoo will use your hashtags to like/follow automatically, so add some hashtags.<br> Twitter is growing 2x faster than Instagram, so it's a useful platform to crosspromote both. Simply add a link to your Instagram in Twitter bios/videos, or add Twitter links in Instagram. Let us know how this new feature works for you! :)<br></div>");
-
             });
 
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
                 SetStoryValue($(this).is(':checked'));
 
-
                 if ($(this).is(':checked') != true) {
+
                     $("#set-like-check").prop("checked", false);
                     SetLikeValue(false);
                     $("#set-follow-check").prop("checked", false);
                     SetFollowValue(false);
-
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
                     $("#set-comment-check").prop("checked", false);
                     SetCommentValue(false);
                 }
-
             });
-            $("#set-comment-check").click(function() {
+            $("#set-comment-check").on("click", function () {
+
                 SetCommentValue($(this).is(':checked'));
 
                 if ($(this).is(':checked')) {
+                    
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTagTwitter(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
+
+            $(document).on('click', '.remove-comment-collect', function () {
 
                 $(this).closest("tr").remove();
                 SendMessage("RemoveCommentFromList", "TagName", $(this).attr("user_id"));
@@ -3485,23 +3344,21 @@ $(document).ready(function() {
                 //  SendMessage("RemoveCommentFromList", "TagName", );
             });
 
+            $("#set-unfollow-check").on("click", function () {
 
-
-
-            $("#set-unfollow-check").click(function() {
                 $("#set-follow-check").prop("checked", false);
-                SetFollowValue(false);
 
+                SetFollowValue(false);
                 SetUnfollowValue($(this).is(':checked'));
+
                 if ($(this).is(':checked')) {
+
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", true);
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -3516,20 +3373,18 @@ $(document).ready(function() {
             $("#story_set").html("Stories/day: " + maxStories);
             $("#comment_set").html("DMs/day: " + maxComments);
 
-
             SetActiveSidebarItem("#sidebar-home-tw");
-
         });
     });
-    $("#sidebar-home").click(function() {
-        $(".content-wrapper").empty();
-        $(".content-wrapper").load("home.html", function() {
 
+    $("#sidebar-home").on("click", function () {
+
+        $(".content-wrapper").empty();
+        $(".content-wrapper").load("home.html", function () {
 
             dashboardMode = 0;
 
             $("#tiktoksettings").hide();
-
 
             mode = "instagram";
             var data2 = user_stats;
@@ -3540,16 +3395,22 @@ $(document).ready(function() {
             var min = 10000000;
             var max = 0;
             var counter = 0;
+
             if (started) {
+
                 var minimum = 10000;
                 var labels = [];
                 for (var index = data2.length - 1; index > data2.length - 100; index--) {
+
                     if (index >= 0) {
+
                         var obj = data2[index];
                         if (CurrentUser && obj.user_id == CurrentUser.user_id && (chart_data.length < 2 || Math.abs(parseInt(obj.followers) - chart_data[chart_data.length - 1]) < 200)) {
+
                             chart_data.push(
                                 parseInt(obj.followers)
                             );
+
                             if (obj.followers > max) {
                                 max = obj.followers;
                             }
@@ -3557,14 +3418,18 @@ $(document).ready(function() {
                             if (obj.followers < min) {
                                 min = obj.followers;
                             }
+
                             labels.push(counter);
+
                             counter++;
+
                             if (parseInt(obj.followers) < minimum) {
                                 minimum = parseInt(obj.followers);
                             }
                         }
                     }
                 }
+
                 chart_data.reverse();
 
                 if (chart_data.length > 1) {
@@ -3572,6 +3437,7 @@ $(document).ready(function() {
                     if (max - min > 100) {
                     }
                 }
+
                 let config = {
                     type: 'line',
                     data: {
@@ -3628,16 +3494,14 @@ $(document).ready(function() {
 
             version = chrome.runtime.getManifest().version;
 
-            setTimeout(function() {
+            setTimeout(function () {
 
                 if (CurrentUser && CurrentUser.username) {
 
                     $(".img-current-user").attr("src", CurrentUser.user_pic_url);
                     $(".img-current-user").show();
-
                 }
             }, 240000);
-
 
             $('#version').attr('name', version);
             if (user_plan == "lifetime" || user_plan == "linkstories" || user_plan == "instoo2" || user_plan == "linkyear" || user_plan == "instoogold" || user_plan == "instooyearly" || user_plan == "instoopro" || user_plan == "instoogold2") {
@@ -3647,12 +3511,9 @@ $(document).ready(function() {
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
 
-
             } else {
-
-
+                // No else logic provided
             }
-
 
             $('#media_accounts').tagsinput({
                 trimValue: true
@@ -3665,8 +3526,7 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-            $("#finalstep").click(function() {
+            $("#finalstep").on("click", function () {
                 $("#set-story-check").prop("checked", true);
                 $("#set-follow-check").prop("checked", true);
                 $("#set-like-check").prop("checked", true);
@@ -3686,9 +3546,7 @@ $(document).ready(function() {
                 trimValue: true
             });
 
-
-
-            $('#my-btns .btn').on('click', function(event) {
+            $('#my-btns .btn').on('click', function (event) {
 
                 var val = $(this).find('input').val();
                 if (val == "Fast") {
@@ -3697,9 +3555,7 @@ $(document).ready(function() {
                     $("#medium").removeClass('active');
 
                     if (paid_sub) {
-
                         SendMessage("SetSpeed", "Speed", 1);
-
                     } else {
                         buySub();
                     }
@@ -3710,8 +3566,6 @@ $(document).ready(function() {
                     $("#fast").removeClass('active');
                     $("#medium").removeClass('active');
                     SendMessage("SetSpeed", "Speed", 8);
-
-
                 }
 
                 if (val == "Medium") {
@@ -3719,32 +3573,25 @@ $(document).ready(function() {
                     $("#slow").removeClass('active');
                     $("#fast").removeClass('active');
                     SendMessage("SetSpeed", "Speed", 2);
-
-
                 }
 
             });
 
-
-
-            $(".backup_picture").on("error", function() {
-                $(this).attr('src', 'icon.png');
+            $(".backup_picture").on("error", function () {
+                $(this).attr('src', iconPath);
             });
 
-
-
             if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                $("#progress").attr("src", "disk.gif");
+                $("#progress").attr("src", "../icons/disk.gif");
             } else {
-                $("#progress").attr("src", "icon.gif");
+                $("#progress").attr("src", "../icons/icon.gif");
             }
-
             if (paid_sub) {
                 $("#sub_msg").hide();
             }
             if (paid_sub) {
-                $(".sub-user").hide();
 
+                $(".sub-user").hide();
                 $("#purchase").hide();
                 $("#upgrade").hide();
 
@@ -3753,21 +3600,16 @@ $(document).ready(function() {
                 $("#customRange3").attr("max", speed_limit);
             } else {
 
-
                 $("#customRange1").attr("max", speed_limit);
                 $("#customRange2").attr("max", speed_limit);
                 $("#customRange3").attr("max", speed_limit);
-
             }
 
             SetActiveSidebarItem("#sidebar-likes_comments");
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
-
-            $("#location_tags").on('itemAdded', function(event) {
-
+            $("#location_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#location_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -3777,7 +3619,6 @@ $(document).ready(function() {
                     var res = tagsText.substr(0, 5); // Here I'm displaying only first 5 Characters.(You can give any number)
                     $('#location_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
-
 
                 var tags = event.item;
                 var split_tags = tags.split("#");
@@ -3790,12 +3631,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-
-
-            $("#media_tags").on('itemAdded', function(event) {
+            $("#media_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -3806,11 +3644,11 @@ $(document).ready(function() {
                     $('#media_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags.split(",");
 
                 for (var kk = 0; kk < split_tags.length; kk++) {
+
                     if (split_tags[kk].split('#').join('').split(',').join('').split(' ').join('').length > 0) {
                         SendMessage("AddTagToList", "TagName", split_tags[kk].split('#').join('').split(',').join('').split(' ').join(''));
                         global_tags.push(split_tags[kk].split('#').join('').split(',').join('').split(' ').join(''));
@@ -3818,12 +3656,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#media_tags2").on('itemAdded', function(event) {
-
-
+            $("#media_tags2").on('itemAdded', function (event) {
                 var tags = event.item;
                 var split_tags = tags.split(",");
 
@@ -3834,11 +3669,9 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemAdded', function(event) {
-
+            $("#comment_tags").on('itemAdded', function (event) {
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
                 var tagWidth = $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().width(); // To get the Width of individual Tag.
@@ -3848,37 +3681,27 @@ $(document).ready(function() {
                     $('#comment_tags').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
                 var tags = event.item;
                 var split_tags = tags;
                 SendMessage("AddCommentToList", "TagName", tags);
-              
-
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#comment_tags").on('itemRemoved', function(event) {
-
+            $("#comment_tags").on('itemRemoved', function (event) {
 
                 var tags = event.item;
                 var split_tags = tags;
 
                 for (var kk = 0; kk < split_tags.length; kk++) {
-
                     SendMessage("RemoveCommentFromList", "TagName", split_tags[kk]);
                     var index = global_tags.indexOf(split_tags[kk]);
                     if (index > -1) {
                         global_tags.splice(index, 1);
                     }
                 }
-
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags").on('itemRemoved', function(event) {
-
-
+            $("#media_tags").on('itemRemoved', function (event) {
                 var tags = event.item;
                 var split_tags = tags.split("#");
 
@@ -3892,16 +3715,13 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
-            $("#media_tags2").on('itemRemoved', function(event) {
 
-
+            $("#media_tags2").on('itemRemoved', function (event) {
                 var tags = event.item;
                 var split_tags = tags.split("#");
 
                 for (var kk = 0; kk < split_tags.length; kk++) {
-
                     SendMessage("RemoveTagFromList", "TagName", split_tags[kk].split('#').join(''));
                     var index = global_tags.indexOf(split_tags[kk].split('#').join(''));
                     if (index > -1) {
@@ -3910,12 +3730,10 @@ $(document).ready(function() {
                 }
 
                 SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
             });
 
-            $("#media_accounts").on('itemAdded', function(event) {
+            $("#media_accounts").on('itemAdded', function (event) {
                 SendMessage("AddAccountToList", "TagName", event.item);
-
                 console.log("CODES THAT RUS 1");
 
                 var tagsinputWidth = 200; // Width of Bootstrap Tags Input.
@@ -3927,11 +3745,7 @@ $(document).ready(function() {
                     $('#media_accounts').parent().find('.bootstrap-tagsinput span.tag').last().html(res + "..." + '<i class="fas fa-times"></i>');
                 }
 
-
-
                 var account_name;
-
-
                 var tags = event.item;
                 var split_tags = tags.split(",");
 
@@ -3947,19 +3761,11 @@ $(document).ready(function() {
                             }
                             SendMessage("CollectFromAccount", "account_name", account_name);
                         }
-
-
-
                     }
                 }
-
-
             });
 
-
-
-
-            $("#media_accounts").on('itemRemoved', function(event) {
+            $("#media_accounts").on('itemRemoved', function (event) {
                 SendMessage("RemoveAccountFromList", "TagName", event.item);
                 var index = global_accounts.indexOf(event.item);
                 if (index > -1) {
@@ -3970,22 +3776,13 @@ $(document).ready(function() {
                     global_tags.splice(index, 1);
                 }
                 var account_name = event.item;
-
-
-
-
-
             });
 
-
-
-
-            $("#customRange5").change(function() {
+            $("#customRange5").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRange5").val()) > 10000) {
                         var input = document.getElementById("customRange5");
                         input.value = 10000;
-
                     }
                 }
                 follow_speed = parseInt($("#customRange1").val());
@@ -3994,9 +3791,7 @@ $(document).ready(function() {
                 story_speed = parseInt($("#customRange5").val());
                 comment_speed = parseInt($("#customRange4").val());
 
-
                 $("#story_set").html("Stories/day: " + $("#customRange5").val());
-
 
                 var settings = {
                     FollowSettings: {},
@@ -4084,10 +3879,7 @@ $(document).ready(function() {
 
                 settings.UnfollowAfterDays = UnfollowAfterDays;
 
-
-
                 SendMessage("UpdateSettings", "Settings", settings);
-
 
                 settings.FollowSettings.TimeMin = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin));
                 settings.FollowSettings.TimeMax = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin)) + 10;
@@ -4111,12 +3903,11 @@ $(document).ready(function() {
                 global_settings = settings;
 
             });
-            $("#customRange4").change(function() {
+            $("#customRange4").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRange4").val()) > 1000) {
                         var input = document.getElementById("customRange4");
                         input.value = 1000;
-
                     }
                 }
                 follow_speed = parseInt($("#customRange1").val());
@@ -4125,9 +3916,7 @@ $(document).ready(function() {
                 story_speed = parseInt($("#customRange5").val());
                 comment_speed = parseInt($("#customRange4").val());
 
-
                 $("#comment_set").html("DMs/day: " + $("#customRange4").val());
-
 
                 var settings = {
                     FollowSettings: {},
@@ -4215,10 +4004,7 @@ $(document).ready(function() {
 
                 settings.UnfollowAfterDays = UnfollowAfterDays;
 
-
-
                 SendMessage("UpdateSettings", "Settings", settings);
-
 
                 settings.FollowSettings.TimeMin = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin));
                 settings.FollowSettings.TimeMax = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin)) + 10;
@@ -4243,12 +4029,11 @@ $(document).ready(function() {
 
             });
 
-            $("#customRange1").change(function() {
+            $("#customRange1").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRange1").val()) > 1000) {
                         var input = document.getElementById("customRange1");
                         input.value = 1000;
-
                     }
                 }
 
@@ -4260,7 +4045,6 @@ $(document).ready(function() {
 
                 $("#follow_set").html("Follows/day: " + $("#customRange1").val());
 
-
                 var settings = {
                     FollowSettings: {},
                     UnfollowSettings: {},
@@ -4327,7 +4111,6 @@ $(document).ready(function() {
                 settings.LikeSettings.TimeMax = like_speed + 10;
                 settings.LikeSettings.ErrorTime = 400;
 
-
                 settings.StorySettings.TimeMin = story_speed;
                 settings.StorySettings.TimeMax = story_speed + 10;
                 settings.StorySettings.ErrorTime = 400;
@@ -4345,8 +4128,6 @@ $(document).ready(function() {
                 settings.TikTokSettings.TimeMax = tiktok_speed + 10;
                 settings.TikTokSettings.ErrorTime = 400;
                 settings.UnfollowAfterDays = UnfollowAfterDays;
-
-
 
                 SendMessage("UpdateSettings", "Settings", settings);
 
@@ -4372,15 +4153,13 @@ $(document).ready(function() {
 
                 global_settings = settings;
 
-
             });
 
-            $("#customRange2").change(function() {
+            $("#customRange2").change(function () {
                 if (paid_sub === false) {
                     if (parseInt($("#customRange2").val()) > 1000) {
                         var input = document.getElementById("customRange2");
                         input.value = 1000;
-
                     }
                 }
                 follow_speed = parseInt($("#customRange1").val());
@@ -4390,7 +4169,6 @@ $(document).ready(function() {
                 comment_speed = parseInt($("#customRange4").val());
 
                 $("#unfollow_set").html("Unfollows/day: " + $("#customRange2").val());
-
 
                 var settings = {
                     FollowSettings: {},
@@ -4501,16 +4279,13 @@ $(document).ready(function() {
                 settings.StorySettings.TimeMax = story_speed + 10;
                 settings.StorySettings.ErrorTime = 200;
                 global_settings = settings;
-
-
             });
 
-            $("#customRange3").change(function() {
+            $("#customRange3").change(function () {
                 if (paid_sub == false) {
                     if (parseInt($("#customRange3").val()) > 1000) {
                         var input = document.getElementById("customRange3");
                         input.value = 1000;
-
                     }
                 }
 
@@ -4590,7 +4365,6 @@ $(document).ready(function() {
                 settings.LikeSettings.TimeMax = like_speed + 10;
                 settings.LikeSettings.ErrorTime = 200;
 
-
                 settings.StorySettings.TimeMin = story_speed;
                 settings.StorySettings.TimeMax = story_speed + 10;
                 settings.StorySettings.ErrorTime = 400;
@@ -4603,18 +4377,12 @@ $(document).ready(function() {
                 settings.CollectFollowings.Interval = 100;
                 settings.CollectFollowings.ErrorTime = 200;
 
-
-
                 settings.TikTokSettings.TimeMin = tiktok_speed;
                 settings.TikTokSettings.TimeMax = tiktok_speed + 10;
                 settings.TikTokSettings.ErrorTime = 400;
-
-
-
                 settings.UnfollowAfterDays = UnfollowAfterDays;
 
                 SendMessage("UpdateSettings", "Settings", settings);
-
 
                 settings.FollowSettings.TimeMin = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin));
                 settings.FollowSettings.TimeMax = Math.floor((16 * 60 * 60) / parseInt(settings.FollowSettings.TimeMin)) + 10;
@@ -4636,44 +4404,39 @@ $(document).ready(function() {
                 settings.StorySettings.TimeMax = story_speed + 10;
                 settings.StorySettings.ErrorTime = 200;
                 global_settings = settings;
-
             });
 
             SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
-            $("#slow").click(function() {
-                var user_plan = $("#plan").attr("name");
+            $("#slow").on("click", function () {
 
+                var user_plan = $("#plan").attr("name");
                 SendMessage("SetSpeed", "Num", 3);
                 $("#slow").addClass('active');
                 $("#fast").removeClass('active');
                 $("#medium").removeClass('active');
 
             });
-            $("#medium").click(function() {
+
+            $("#medium").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
-
-
                 SendMessage("SetSpeed", "Num", 2);
                 $("#medium").addClass('active');
                 $("#slow").removeClass('active');
                 $("#fast").removeClass('active');
-
             });
-            $("#fast").click(function() {
+
+            $("#fast").on("click", function () {
+
                 var user_plan = $("#plan").attr("name");
-
-
                 SendMessage("SetSpeed", "Num", 1);
-
-
-
                 $("#fast").addClass('active');
                 $("#slow").removeClass('active');
                 $("#medium").removeClass('active');
             });
-            $("#set-follow-check").click(function() {
+
+            $("#set-follow-check").on("click", function () {
+
                 $("#set-unfollow-check").prop("checked", false);
                 SetUnfollowValue(false);
                 SetFollowValue($(this).is(':checked'));
@@ -4683,37 +4446,33 @@ $(document).ready(function() {
                     $("#set-story-check").prop("checked", true);
                 }
                 if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                    $("#progress").attr("src", "disk.gif");
+                    $("#progress").attr("src", "../icons/disk.gif");
                 } else {
-                    $("#progress").attr("src", "icon.gif");
+                    $("#progress").attr("src", "../icons/icon.gif");
                 }
-
             });
-            $("#set-like-check").click(function() {
 
+            $("#set-like-check").on("click", function () {
                 SetLikeValue($(this).is(':checked'));
                 like_val = $(this).is(':checked');
                 if (like_val) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
                 if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                    $("#progress").attr("src", "disk.gif");
+                    $("#progress").attr("src", "../icons/disk.gif");
                 } else {
-                    $("#progress").attr("src", "icon.gif");
+                    $("#progress").attr("src", "../icons/icon.gif");
                 }
-
             });
 
-
-            $("#set-story-check").click(function() {
+            $("#set-story-check").on("click", function () {
                 SetStoryValue($(this).is(':checked'));
                 like_val = $(this).is(':checked');
                 if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                    $("#progress").attr("src", "disk.gif");
+                    $("#progress").attr("src", "../icons/disk.gif");
                 } else {
-                    $("#progress").attr("src", "icon.gif");
+                    $("#progress").attr("src", "../icons/icon.gif");
                 }
 
                 if (like_val != true) {
@@ -4727,37 +4486,38 @@ $(document).ready(function() {
                     $("#set-comment-check").prop("checked", false);
                     SetCommentValue(false);
                 }
-
             });
-            $("#set-comment-check").click(function() {
+
+            $("#set-comment-check").on("click", function () {
                 SetCommentValue($(this).is(':checked'));
                 comment_val = $(this).is(':checked');
                 if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                    $("#progress").attr("src", "disk.gif");
+                    $("#progress").attr("src", "../icons/disk.gif");
                 } else {
-                    $("#progress").attr("src", "icon.gif");
+                    $("#progress").attr("src", "../icons/icon.gif");
                 }
                 if (comment_val) {
                     SetStoryValue($(this).is(':checked'));
                     $("#set-story-check").prop("checked", status.StartLike);
                 }
-
             });
-            $(document).on('click', '.remove-user-collect', function() {
+
+            $(document).on('click', '.remove-user-collect', function () {
                 RemoveCollectJobUser(this);
-
             });
-            $(document).on('click', '.remove-tag-collect', function() {
+
+            $(document).on('click', '.remove-tag-collect', function () {
                 RemoveCollectJobTag(this);
             });
-            $(document).on('click', '.remove-location-collect', function() {
+
+            $(document).on('click', '.remove-location-collect', function () {
                 RemoveLocationJobTag(this);
             });
-            $(document).on('click', '.remove-comment-collect', function() {
+
+            $(document).on('click', '.remove-comment-collect', function () {
 
                 var user_id = $(this).attr("user_id");
                 $(this).closest("tr").remove();
-
 
                 SendMessage("RemoveCommentFromList", "TagName", user_id);
                 //  var index = global_tags.indexOf(user_id);
@@ -4766,10 +4526,7 @@ $(document).ready(function() {
                 //  SendMessage("RemoveCommentFromList", "TagName", );
             });
 
-
-
-
-            $("#set-unfollow-check").click(function() {
+            $("#set-unfollow-check").on("click", function () {
                 $("#set-follow-check").prop("checked", false);
                 SetFollowValue(false);
 
@@ -4780,23 +4537,19 @@ $(document).ready(function() {
                     $("#set-story-check").prop("checked", true);
                 }
                 if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                    $("#progress").attr("src", "disk.gif");
+                    $("#progress").attr("src", "../icons/disk.gif");
                 } else {
-                    $("#progress").attr("src", "icon.gif");
+                    $("#progress").attr("src", "../icons/icon.gif");
                 }
-
             });
 
             SetActiveSidebarItem("#sidebar-home");
 
-
-
             if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-                $("#progress").attr("src", "disk.gif");
+                $("#progress").attr("src", "../icons/disk.gif");
             } else {
-                $("#progress").attr("src", "icon.gif");
+                $("#progress").attr("src", "../icons/icon.gif");
             }
-
 
             SendMessage("RequestSettings", "", "");
 
@@ -4811,50 +4564,34 @@ $(document).ready(function() {
             $("#story_set").html("Stories/day: " + maxStories);
             $("#comment_set").html("DMs/day: " + maxComments);
 
-
-
-
-
-
-
             $("#startinstagram").parent().addClass("active");
 
             SetActiveSidebarItem("#sidebar-home");
-
-
         });
-
-
-
-
     });
 
     function onClick(e) {
-
         $("#snapshots").html("<h4>Settings Used:</h4> <br>Likes/Day:" + live_snapshots[e.dataPoint.x].LikeSettings.TimeMin + "<br>Follows/day:" + live_snapshots[e.dataPoint.x].FollowSettings.TimeMin + "<br>Unfollows/Day:" + live_snapshots[e.dataPoint.x].UnfollowSettings.TimeMin + "<br>");
         $("#tags").html("<h4>Hashtag Targets:</h4> <br>" + live_tags[e.dataPoint.x]);
         $("#accounts").html("<h4>Account Targets:</h4> <br>" + live_accounts[e.dataPoint.x]);
-
     }
 
+    $("#sidebar-settings").on("click", function () {
 
-
-
-
-
-    $("#sidebar-settings").click(function() {
         $(".content-wrapper").empty();
-        $(".content-wrapper").load("settings.html", function() {
-            var followers_string = "";
-            for (var kk = 0; kk < user_followers.length; kk++) {
-                followers_string += user_followers[kk] + ", ";
 
+        $(".content-wrapper").load("settings.html", function () {
+            var followers_string = "";
+
+            for (var kk = 0; kk < user_followers.length; kk++) {
+
+                followers_string += user_followers[kk] + ", ";
             }
+
             var ideal_targets_string = "";
 
             for (var kk = 0; kk < IdealTargets.length; kk++) {
                 ideal_targets_string += IdealTargets[kk].username + " followers: " + IdealTargets[kk].followers + "<br> ";
-
             }
 
             let element = document.getElementById("minPhoto");
@@ -4865,275 +4602,261 @@ $(document).ready(function() {
 
             let element2 = document.getElementById("maxFollowing");
             element2.value = maxFollowing;
+
             let element3 = document.getElementById("minFollower");
             element3.value = minFollowers;
+
             let element4 = document.getElementById("maxFollower");
             element4.value = maxFollowers;
+
             var blacklist_string = "";
 
             for (var kk = 0; kk < blacklist.length; kk++) {
                 blacklist_string += blacklist[kk] + ",  ";
-
             }
-
 
             var filter_string = "";
 
             for (var kk = 0; kk < filters.length; kk++) {
                 filter_string += filters[kk] + ",  ";
-
             }
-            $("#followers_list").html("Followers " + user_followers.length + "/" + follow_count_num + ": " + followers_string + "<br>");
-            $("#activity_log").html("<br>Activity Log: <br>" + activity_log);
-            $("#blacklist").html("<br>Blacklist of profiles to never re-visit:  <br>" + blacklist_string);
-            $("#filters").html("<br>Words to avoid in bio text and photo content:  <br>" + filter_string);
 
+            $("#followers_list").html("Followers " + user_followers.length + "/" + follow_count_num + ": " + followers_string + "<br>");
+
+            $("#activity_log").html("<br>Activity Log: <br>" + activity_log);
+
+            $("#blacklist").html("<br>Blacklist of profiles to never re-visit:  <br>" + blacklist_string);
+
+            $("#filters").html("<br>Words to avoid in bio text and photo content:  <br>" + filter_string);
+            
             $("#IdealTargets").html("<br>Ideal Account Targets: <br>" + ideal_targets_string);
 
-            $("#export").click(function() {
-                    SendMessage("ExportDatabase", "", "");
-
-
-                }
-
+            $("#export").on("click", function () {
+                SendMessage("ExportDatabase", "", "");
+            }
             );
-            $("#switch-account").click(function() {
-                    SendMessage("switch-account", "", "");
-                    alert("Please wait 30 seconds while the Instagram tab navigates to your new profile. Make sure to log into the correct account at Instagram.com first. You can also re-install the extension to switch accounts.");
 
-
-                }
-
+            $("#switch-account").on("click", function () {
+                SendMessage("switch-account", "", "");
+                alert("Please wait 30 seconds while the Instagram tab navigates to your new profile. Make sure to log into the correct account at Instagram.com first. You can also re-install the extension to switch accounts.");
+            }
             );
-            $(document).on('change', '#import-file-input', function(event) {
+
+            $(document).on('change', '#import-file-input', function (event) {
                 ImportDatabase(event);
             });
 
-            $("#import").click(function() {
-                $("#import-file-input").click();
+            $("#import").on("click", function () {
+                $("#import-file-input").on("click",);
             });
 
-            $("#generateHashtags").click(function() {
+            $("#generateHashtags").on("click", function () {
                 var theme = prompt("Enter the theme of the profile(1 word only).");
                 theme = theme.split(" ")[0];
 
-
                 $.ajax({
-                        url: "https://instoo.com/user/getBestTargets",
-                        method: "POST",
-                        data: {
-                            "theme": theme
-                        },
-                        error: function(request, status, error) {
-                            var Error = {};
-                            Error.String = "CollectMediaFromAccountError";
-                            Error.Request = request;
-                            Error.Status = status;
-                            Error.AjaxError = error;
+                    url: "https://instoo.com/user/getBestTargets",
+                    method: "POST",
+                    data: {
+                        "theme": theme
+                    },
+                    error: function (request, status, error) {
 
-                        }
-                    })
-                    .done(function(dataobj) {
+                        var Error = {};
+                        Error.String = "CollectMediaFromAccountError";
+                        Error.Request = request;
+                        Error.Status = status;
+                        Error.AjaxError = error;
+                    }
+
+                }).done(function(dataobj) {
 
                         $('#hashtagsOutput').append("<h3>Best hashtags based on our logs:" + dataobj + "</h3>");
-
                     });
-
-
             });
 
-
-
-            $("#cloud-backup").click(function() {
+            $("#cloud-backup").on("click", function () {
 
                 alert("Settings saved to cloud!");
-
                 if (roughSizeOfObject(cloud_db) < 15000000) {
-                    
+                    // No logic provided.
                 }
-
             });
-            $("#cloud-clear").click(function() {
+
+            $("#cloud-clear").on("click", function () {
 
                 alert("Cloud backup cleared!");
-         
-
                 SendMessage("ResetAll", "", "");
-
             });
 
+            $("#add_followers").on("click", function () {
 
-
-
-            $("#add_followers").click(function() {
                 var whitelist_users = [];
-
                 for (var kk = 0; kk < user_followers.length; kk++) {
                     whitelist_users.push(user_followers[kk]);
-
                 }
                 SendMessage("AddUserToWhitelistNameList", "username", whitelist_users);
-
             });
 
-            $("#set-backgrounddm-check").click(function() {
+            $("#set-backgrounddm-check").on("click", function () {
+
                 SendMessage("SetDMMode", "mode", $(this).is(':checked'));
-
-
             });
 
-            $("#set-enablefilters-check").click(function() {
+            $("#set-enablefilters-check").on("click", function () {
+
                 SendMessage("SetEnableFilters", "mode", $(this).is(':checked'));
-
-
             });
-            $("#set-collectfollowers-check").click(function() {
+
+            $("#set-collectfollowers-check").on("click", function () {
+
                 SendMessage("SetCollectFollowers", "mode", $(this).is(':checked'));
             });
-        
 
-            
-
-
-            $("#white_accounts").on('itemAdded', function(event) {
-               
-
+            $("#white_accounts").on('itemAdded', function (event) {
+                // No logic provided.
             });
 
+            $("#set-slow-check").on("click", function () {
 
-
-
-            $("#set-slow-check").click(function() {
                 SetFollowValue();
                 SendMessage("SetSlowMode", "slow", $(this).is(':checked'));
-
             });
 
-
             $("#set-unfollowinstoo-check").prop("checked", unfollow_mode);
-            $("#set-unfollowinstoo-check").click(function() {
-                SendMessage("Setunfollowinstoo", "unfollowInstoo", $(this).is(':checked'));
 
+            $("#set-unfollowinstoo-check").on("click", function () {
+
+                SendMessage("Setunfollowinstoo", "unfollowInstoo", $(this).is(':checked'));
             });
 
             $("#set-addideal-check").prop("checked", addIdeal);
 
-            $("#set-addideal-check").click(function() {
+            $("#set-addideal-check").on("click", function () {
+
                 SendMessage("Setaddideal", "addideal", $(this).is(':checked'));
-
             });
-
-         
 
             $("#set-collectfollowers-check").prop("checked", collectSelfFollowers);
 
             $("#set-backgrounddm-check").prop("checked", DMMode);
+
             $("#set-enablefilters-check").prop("checked", EnableFilters);
 
             $("#set-react-check").prop("checked", StartReact);
-            $("#set-react-check").click(function() {
+
+            $("#set-react-check").on("click", function () {
+
                 StartReact = $(this).is(':checked');
                 SendMessage("SetReactMode", "reacts", StartReact);
                 var result = $('input[type="checkbox"]:checked') // this return collection of items checked
+
                 if (result.length > 0) {
+
                     reacts = [];
-                    result.each(function() {
+                    result.each(function () {
                         reacts.push($(this).val());
                     });
 
                     SendMessage("SetReacts", "reacts", reacts);
-
-
                 }
-
             });
 
-            $("#set-cloud-check").click(function() {
+            $("#set-cloud-check").on("click", function () {
 
                 if (cloud_backup === false) {
+
                     buyCloud();
-                    $("#set-cloud-check").click();
+                    $("#set-cloud-check").on("click",);
+
                 } else {
+
                     user_cloud = $(this).is(':checked');
                 }
             });
 
-
             $("#set-unfollowmode-check").prop("checked", unfollow_mode);
 
-            $("#set-unfollowmode-check").click(function() {
+            $("#set-unfollowmode-check").on("click", function () {
+
                 enable_get_followers = $(this).is(':checked');
+
                 SendMessage("SetUnfollowMode", "unfollow", $(this).is(':checked'));
             });
 
+            $("#input-unfollow-days").bind('keyup mouseup', function () {
 
-            $("#input-unfollow-days").bind('keyup mouseup', function() {
                 SendMessage("SetUnfollowDays", "days", $("#input-unfollow-days").val());
-
             });
+
             $("#input-unfollow-days").val(UnfollowAfterDays);
 
             SendMessage("RequestWhitelistStatus", "", "");
 
             var modal = $('body').siblings("#AddUserToWhitelistModal");
+
             if (modal.length > 0) {
+
                 modal.remove();
             }
+
             $('#AddUserToWhitelistModal').insertAfter($('body'));
 
             SendMessage("RequestWhitelist", "", "");
-            $("#whitelist-followings").click(function() {
+
+            $("#whitelist-followings").on("click", function () {
+
                 WhitelistFollowings($(this).is(':checked'));
             });
 
+            $("#user-search").keyup(function (event) {
 
-            $("#user-search").keyup(function(event) {
                 event.preventDefault();
-
                 FilterWhitelistSearch(this);
-
             });
 
+            $("#add-user-search").keyup(function () {
 
-            $("#add-user-search").keyup(function() {
                 NewWhitelistUserSearch(this);
             });
-
 
             SetActiveSidebarItem("#sidebar-likes_comments");
 
             SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
             SendMessage("RequestSettings", "", "");
 
             var modal = $('body').siblings("#confirm-reset-modal");
+
             if (modal.length > 0) {
+
                 modal.remove();
             }
+
             $('#confirm-reset-modal').insertAfter($('body'));
 
-            $("#default-settings").click(function() {
-                SendMessage("ResetPool", "", "");
+            $("#default-settings").on("click", function () {
 
+                SendMessage("ResetPool", "", "");
             });
 
-            $("#save-settings").click(function() {
+            $("#save-settings").on("click", function () {
+
                 SaveSettings();
             });
 
+            $("#export-database").on("click", function () {
 
-
-
-            $("#export-database").click(function() {
                 SendMessage("ExportDatabase", "", "");
             });
 
-            $("#reset-all").click(function() {
+            $("#reset-all").on("click", function () {
+
                 $("#confirm-reset-modal").modal('show');
             });
 
-            $("#confirm-modal-btn-yes").click(function() {
+            $("#confirm-modal-btn-yes").on("click", function () {
+
                 SendMessage("ResetAll", "", "");
             });
 
@@ -5141,16 +4864,13 @@ $(document).ready(function() {
         });
     });
 
-
-
-   
-
-    $("#sidebar-home").click();
+    $("#sidebar-home").on("click",); // for some reason no event handler :( , from the looks of it it should enable an action on the sidebar-home id element
 
     SendMessage("OpenInstagramFast", "Speed", 1);
 })
 
-function SetActiveSidebarItem(sidebar_id) { 
+function SetActiveSidebarItem(sidebar_id) {
+
     $("#sidebar-home").addClass("sidebar-item");
     $("#sidebar-home-tiktok").addClass("sidebar-item");
     $("#sidebar-home-facebook").addClass("sidebar-item");
@@ -5193,6 +4913,7 @@ function SetActiveSidebarItem(sidebar_id) {
 }
 
 function CreateComPort() {
+
     ComPort = chrome.runtime.connect({
         name: "instafollow213index"
     });
@@ -5213,53 +4934,71 @@ function GotDatabase(database) {
 
     cloud_db = database;
     update_interval = true;
+
     if (!loadedAccounts) {
+
         if (document.getElementById("accounts")) {
             document.getElementById("accounts").remove();
         }
         var usernames = [];
+
         for (var kk = 0; kk < cloud_db.length; kk++) {
+
             usernames.push(cloud_db[kk].username);
 
         }
+
         var values = usernames;
+
         var select = document.createElement("select");
+
         select.name = "accounts";
+
         select.id = "accounts";
+
         select.style.width = "80%";
+
         SendMessage("LoadAccount", "account", selectedAccount);
 
         select.value = selectedAccount;
+
         for (const val of values) {
+
             var option = document.createElement("option");
+
             option.value = val;
+
             option.text = val.charAt(0).toUpperCase() + val.slice(1);
+
             select.appendChild(option);
         }
+
         loadedAccounts = true;
-        select.addEventListener("click", function() {
+
+        select.addEventListener("click", function () {
+
             selectedAccount = this.value;
+
             SendMessage("LoadAccount", "account", this.value);
 
             let element = document.getElementById("accounts");
+
             element.value = this.value;
+
             $("#accounts").val(this.value);
-
-
         });
-
     }
-
-
 }
 
 function checkObject(user_id, array) {
+
     for (var jj = 0; jj < array.length; jj++) {
+
         if (array[jj].target == user_id) {
+
             return [array[jj]];
         }
     }
-
     return [];
 }
 
@@ -5275,40 +5014,63 @@ function OnMessageReceive(msg) {
         var like_block = $("#crm-table");
         var like_table = $(like_block).find("tbody");
         $(like_table).empty();
-        var html = "<br><br><table style='  border: 1px solid black; padding:10px; width:100%;'><tr><td></td><td>Contact</td><td>Email</td><td>Sales</td><td>Target</td><td>Website</td><td>Twitter</td><td>Birthday</td><td>Connected</td></tr>";
+        var html = `
+        <br>
+        <br>
+        <table style='  border: 1px solid black; padding:10px; width:100%;'>
+            <tr>
+                <td></td>
+                <td>Contact</td>
+                <td>Email</td>
+                <td>Sales</td>
+                <td>Target</td>
+                <td>Website</td>
+                <td>Twitter</td>
+                <td>Birthday</td>
+                <td>Connected</td>
+            </tr>`;
+
         for (var i = 0; i < linkedin_data.length; i++) {
-            if (typeof linkedin_data[i] != "undefined")
-                html += "<tr><td><img width='100px' src='" + linkedin_data[i].img + "'></img></td><td><a target='_blank' rel='noopener noreferrer' href='https://linkedin" + linkedin_data[i].url.split("linkedin")[1] + "'>" + linkedin_data[i].username + "</a></td><td><a href='#' onclick='editEmail(" + i + ")'>" + linkedin_data[i].email + "</a></td><td><a href='#' onclick='editSales(" + i + ")'>" + linkedin_data[i].sales + "</a></td><td><a href='#' onclick='editTargret(" + i + ")'>" + linkedin_data[i].target + "</a></td><td><a href='#' onclick='editWebsite(" + i + ")'>" + linkedin_data[i].website + "</a></td><td><a href='#' onclick='editTwitter(" + i + ")'>" + linkedin_data[i].twitter + "</a></td><td><a href='#' onclick='editBirthday(" + i + ")'>" + linkedin_data[i].birthday + "</a></td><td><a href='#' onclick='editConnected(" + i + ")'>" + linkedin_data[i].connected + "</a></td></tr>";
+
+            if (typeof linkedin_data[i] != "undefined") html += "<tr><td><img width='100px' src='" + linkedin_data[i].img + "'></img></td><td><a target='_blank' rel='noopener noreferrer' href='https://linkedin" + linkedin_data[i].url.split("linkedin")[1] + "'>" + linkedin_data[i].username + "</a></td><td><a href='#' onclick='editEmail(" + i + ")'>" + linkedin_data[i].email + "</a></td><td><a href='#' onclick='editSales(" + i + ")'>" + linkedin_data[i].sales + "</a></td><td><a href='#' onclick='editTargret(" + i + ")'>" + linkedin_data[i].target + "</a></td><td><a href='#' onclick='editWebsite(" + i + ")'>" + linkedin_data[i].website + "</a></td><td><a href='#' onclick='editTwitter(" + i + ")'>" + linkedin_data[i].twitter + "</a></td><td><a href='#' onclick='editBirthday(" + i + ")'>" + linkedin_data[i].birthday + "</a></td><td><a href='#' onclick='editConnected(" + i + ")'>" + linkedin_data[i].connected + "</a></td></tr>";
+
             if (linkedin_data[i].target in target_dic) {
+
                 target_dic[linkedin_data[i].target].leads++;
                 target_dic[linkedin_data[i].target].sales += parseInt(linkedin_data[i].sales);
+
                 if (linkedin_data[i].connected != "none") {
+
                     target_dic[linkedin_data[i].target].connected++;
                 }
             } else {
+
                 var did_connect = 0;
                 if (linkedin_data[i].connected != "none") {
                     did_connect = 1;
                 }
 
-
                 target_dic[linkedin_data[i].target] = {
+
                     leads: 1,
                     sales: parseInt(linkedin_data[i].sales),
                     connected: did_connect
                 };
             }
-
         }
 
-
         for (var i = 0; i < instagram_data.length; i++) {
-            if (typeof instagram_data[i] != "undefined")
-                html += "<tr><td><img width='100px' src='" + instagram_data[i].img + "'></img></td><td><a target='_blank' rel='noopener noreferrer' href='" + instagram_data[i].url + "'>" + instagram_data[i].username + "</a></td><td><a href='#' onclick='editInstaEmail(" + i + ")'>" + instagram_data[i].email + "</a></td><td><a href='#' onclick='editInstaSales(" + i + ")'>" + instagram_data[i].sales + "</a></td><td><a href='#' onclick='editInstaTargret(" + i + ")'>" + instagram_data[i].target + "</a></td><td><a href='#' onclick='editInstaWebsite(" + i + ")'>" + instagram_data[i].website + "</a></td><td><a href='#' onclick='editInstaTwitter(" + i + ")'>" + instagram_data[i].twitter + "</a></td><td><a href='#' onclick='editInstaBirthday(" + i + ")'>" + instagram_data[i].birthday + "</a></td><td><a href='#' onclick='editInstaConnected(" + i + ")'>" + instagram_data[i].connected + "</a></td></tr>";
+
+            if (typeof instagram_data[i] != "undefined") html += "<tr><td><img width='100px' src='" + instagram_data[i].img + "'></img></td><td><a target='_blank' rel='noopener noreferrer' href='" + instagram_data[i].url + "'>" + instagram_data[i].username + "</a></td><td><a href='#' onclick='editInstaEmail(" + i + ")'>" + instagram_data[i].email + "</a></td><td><a href='#' onclick='editInstaSales(" + i + ")'>" + instagram_data[i].sales + "</a></td><td><a href='#' onclick='editInstaTargret(" + i + ")'>" + instagram_data[i].target + "</a></td><td><a href='#' onclick='editInstaWebsite(" + i + ")'>" + instagram_data[i].website + "</a></td><td><a href='#' onclick='editInstaTwitter(" + i + ")'>" + instagram_data[i].twitter + "</a></td><td><a href='#' onclick='editInstaBirthday(" + i + ")'>" + instagram_data[i].birthday + "</a></td><td><a href='#' onclick='editInstaConnected(" + i + ")'>" + instagram_data[i].connected + "</a></td></tr>";
+
             if (instagram_data[i].target in target_dic) {
+
                 target_dic[instagram_data[i].target].leads++;
+
                 target_dic[instagram_data[i].target].sales += parseInt(instagram_data[i].sales);
+
                 if (instagram_data[i].connected != "none") {
+
                     target_dic[instagram_data[i].target].connected++;
                 }
             } else {
@@ -5324,111 +5086,93 @@ function OnMessageReceive(msg) {
                     connected: did_connect
                 };
             }
-
         }
         html += "</table><script>function editInstaConnected(num){ window.postMessage({mode: 'Instaconnected' ,edit: num} , '*');} function editInstaBirthday(num){ window.postMessage({mode: 'Instabirthday' ,edit: num} , '*');}function editInstaTwitter(num){ window.postMessage({mode: 'Instatwitter' ,edit: num} , '*');} function editInstaWebsite(num){ window.postMessage({mode: 'Instawebsite' ,edit: num} , '*');} function editInstaTarget(num){ window.postMessage({mode: 'Instatarget' ,edit: num} , '*');} function editInstaSales(num){ window.postMessage({mode: 'Instasales' ,edit: num} , '*');}function editInstaEmail(num){ window.postMessage({mode: 'Instaemail' ,edit: num} , '*');}function editConnected(num){ window.postMessage({mode: 'connected' ,edit: num} , '*');} function editBirthday(num){ window.postMessage({mode: 'birthday' ,edit: num} , '*');}function editTwitter(num){ window.postMessage({mode: 'twitter' ,edit: num} , '*');} function editWebsite(num){ window.postMessage({mode: 'website' ,edit: num} , '*');} function editTarget(num){ window.postMessage({mode: 'target' ,edit: num} , '*');} function editSales(num){ window.postMessage({mode: 'sales' ,edit: num} , '*');}function editEmail(num){ window.postMessage({mode: 'email' ,edit: num} , '*');}</script>";
         $(like_block).html(html);
 
         var target_block = $("#target-table");
+
         var target_table = $(target_block).find("tbody");
         $(target_table).empty();
-        var html_target = "<br><br><table style='  border: 1px solid black; padding:10px; width:100%;'><tr><td>Target</td><td>Sales</td><td>Leads</td><td>Gained Followers</td></tr>";
+
+        var html_target = `
+        <br>
+        <br>
+        <table style='border: 1px solid black; padding:10px; width:100%;'>
+            <tr>
+            <td>Target</td>
+            <td>Sales</td>
+            <td>Leads</td>
+            <td>Gained Followers</td>
+            </tr>
+        `;
+
         for (var key in target_dic) {
+
             if (target_dic.hasOwnProperty(key)) {
+
                 html_target += "<tr><td>" + key + "</td><td>" + target_dic[key].sales + "</td><td> " + target_dic[key].leads + "</td><td>" + target_dic[key].connected + "</td></tr>";
             }
-
         }
+
         html_target += "</table>";
 
         $(target_block).html(html_target);
 
-
-
-
-    } else if (msg.Tag == "setLanguage") { 
+    } else if (msg.Tag == "setLanguage") {
+        
         $("#errors").prepend("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Instoo has detected that the langauge at instagram.com is not set to English. Please follow these steps: <br>1) Click your profile picture in the top right corner, then click Profile. <br>2) Click Edit Profile.<br>3) Click Language at the very bottom of the page and select a new language.<br>4) Select English. It's in small gray text on the last line of the page to make it easy.</div>");
 
-
-    } else if (msg.Tag == "UserFollowCompleteTikTok") { 
+    } else if (msg.Tag == "UserFollowCompleteTikTok") {
 
         OnFollowedUserTikTok(msg.User);
 
-
-
-    } else if (msg.Tag == "UserFollowCompletefacebook") { 
+    } else if (msg.Tag == "UserFollowCompletefacebook") {
 
         OnFollowedUserfacebook(msg.User);
 
-
-
-    } else if (msg.Tag == "UserFollowCompletePinterest") { 
+    } else if (msg.Tag == "UserFollowCompletePinterest") {
 
         OnFollowedUserPinterest(msg.User);
 
-
-
-    } else if (msg.Tag == "UserFollowCompleteLinkedin") { 
+    } else if (msg.Tag == "UserFollowCompleteLinkedin") {
 
         OnFollowedUserLinkedin(msg.User);
 
+    } else if (msg.Tag == "RefreshPage") {
 
-
-    } else if (msg.Tag == "RefreshPage") { 
         window.location.reload(true);
 
-
-    } else if (msg.Tag == "UserFollowCompleteTwitter") { 
+    } else if (msg.Tag == "UserFollowCompleteTwitter") {
 
         OnFollowedUserTwitter(msg.User);
 
+    } else if (msg.Tag == "UserLikeCompleteTikTok") {
 
-
-    } else if (msg.Tag == "UserLikeCompleteTikTok") { 
         OnLikedMediaTikTok(msg.User);
-
-
 
     } else if (msg.Tag == "UserLikeCompletefacebook") {
 
-
         OnLikedMediafacebook(msg.User);
 
-
-
-    } else if (msg.Tag == "UserLikeCompletePinterest") { 
-
-
+    } else if (msg.Tag == "UserLikeCompletePinterest") {
 
         OnLikedMediaPinterest(msg.User);
 
-
-
-    } else if (msg.Tag == "UserLikeCompleteLinkedin") { 
-
-
-
+    } else if (msg.Tag == "UserLikeCompleteLinkedin") {
 
         OnLikedMediaLinkedin(msg.User);
 
-
-
-    } else if (msg.Tag == "UserLikeCompleteTinder") { 
-
-
+    } else if (msg.Tag == "UserLikeCompleteTinder") {
 
         OnLikedMediaTinder(msg.User);
 
-
-
     } else if (msg.Tag == "UserLikeCompleteTwitter") {
-
 
         OnLikedMediaTwitter(msg.User);
 
-
-
     } else if (msg.Tag == "DispatchFollowStatus") {
+        
         UpdateFollowStatus(msg.AllUsers);
     } else if (msg.Tag == "SetPhoto") {
         $(".img-current-user").attr("src", msg.user.profile_pic_url);
@@ -5438,10 +5182,10 @@ function OnMessageReceive(msg) {
         var user_plan = $("#plan").attr("name");
 
         $.post('https://instoo.com/user/postInst', {
-                email: user_email,
-                username: CurrentUser.username
-            },
-            function(returnedData) {
+            email: user_email,
+            username: CurrentUser.username
+        },
+            function (returnedData) {
                 if (returnedData && returnedData.length > 1 && CurrentUser.username != "nala_awoon" && !user_email.includes("ikeda.group")) {
                     $("#trial").show();
                     SetFollowValue(false);
@@ -5461,7 +5205,7 @@ function OnMessageReceive(msg) {
         started = true;
         var loaded = false;
         var obj = [];
-  
+
         SendMessage("loadLocal", "Database", "obj");
 
 
@@ -5471,46 +5215,49 @@ function OnMessageReceive(msg) {
         for (var kk = 0; kk < recentFollowers.length; kk++) {
             var found = checkObject(recentFollowers[kk].user_id, instooData);
             if (found.length > 0) {
-              
-            }
-
+            } // Condition not handled in if statement.
         }
 
     } else if (msg.Tag == "RankedID") {
-
-
+        // No logic provided.
     } else if (msg.Tag == "LoopingTargets") {
 
-        $("#errors").prepend("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Instoo is looping your targets("  +  msg.Media + "), which means they do not actively gain followers fast enough.<br><b> If you have 20+ account targets, please remove these. You should add 20 more account targets with under 100k followers.</b><br> Bot auto-turned off to avoid looping the same targets. The first day after adding new targets, make sure they actively gain relevant followers. It will tell you which target all profiles came from on the Instagram tab and Instoo tab,so you can remove irrelevant ones. </div>");
+        $("#errors").prepend("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Instoo is looping your targets(" + msg.Media + "), which means they do not actively gain followers fast enough.<br><b> If you have 20+ account targets, please remove these. You should add 20 more account targets with under 100k followers.</b><br> Bot auto-turned off to avoid looping the same targets. The first day after adding new targets, make sure they actively gain relevant followers. It will tell you which target all profiles came from on the Instagram tab and Instoo tab,so you can remove irrelevant ones. </div>");
 
         $("#set-story-check").prop("checked", false);
+
         $("#set-follow-check").prop("checked", false);
+
         $("#set-like-check").prop("checked", false);
 
         SetStoryValue(false);
         SetLikeValue(false);
         SetFollowValue(false);
-
-       
-
     } else if (msg.Tag == "userData") {
+
         $("#follow_count").html("followers: " + msg.User.edge_followed_by.count);
+
         follow_count_num = msg.User.edge_followed_by.count;
         if (follow_count_num < 1000) {
             SendMessage("SetSpeed", "Num", 2);
-            
-        $("#fast").removeClass('active');
-        $("#slow").removeClass('active');
-        $("#medium").addClass('active');
+
+            $("#fast").removeClass('active');
+
+            $("#slow").removeClass('active');
+
+            $("#medium").addClass('active');
         }
 
         if (follow_count_num < 200) {
             SendMessage("SetSpeed", "Num", 8);
-            
-        $("#fast").removeClass('active');
-        $("#slow").addClass('active');
-        $("#medium").removeClass('active');
+
+            $("#fast").removeClass('active');
+
+            $("#slow").addClass('active');
+
+            $("#medium").removeClass('active');
         }
+        
         var account_id = msg.User.id;
 
         var UserData = {
@@ -5522,13 +5269,16 @@ function OnMessageReceive(msg) {
 
 
         var CollectJob = {};
+
         CollectJob.user_id = account_id;
+
         CollectJob.cursor_key = null;
+
         CollectJob.user = UserData;
+
         myCollectJob = CollectJob;
+
         SendMessage("myCollectJob", "Job", CollectJob);
-
-
 
     } else if (msg.Tag == "gotStats") {
         follow_count_num = parseInt(msg.followers.followers.split(",").join("").split(".").join("").split(" ").join(""));
@@ -5538,18 +5288,18 @@ function OnMessageReceive(msg) {
         var currentHour = d.getHours();
         if (follow_count_num < 1000) {
             SendMessage("SetSpeed", "Num", 2);
-            
-        $("#fast").removeClass('active');
-        $("#slow").removeClass('active');
-        $("#medium").addClass('active');
+
+            $("#fast").removeClass('active');
+            $("#slow").removeClass('active');
+            $("#medium").addClass('active');
         }
 
         if (follow_count_num < 200) {
             SendMessage("SetSpeed", "Num", 3);
-            
-        $("#fast").removeClass('active');
-        $("#slow").addClass('active');
-        $("#medium").removeClass('active');
+
+            $("#fast").removeClass('active');
+            $("#slow").addClass('active');
+            $("#medium").removeClass('active');
 
         }
         var d_num = Date.parse(d);
@@ -5568,8 +5318,7 @@ function OnMessageReceive(msg) {
                 mode: "instagram"
             };
 
-             SendMessage("PostStats", "data", data);
-
+            SendMessage("PostStats", "data", data);
         }
 
     } else if (msg.Tag == "SendUserHeader") {
@@ -5579,8 +5328,7 @@ function OnMessageReceive(msg) {
         if (enable_get_followers) {
         }
         if (true) {
-
-
+            // No logic provided.
         }
 
     } else if (msg.Tag == "StatusUpdate") {
@@ -5625,32 +5373,40 @@ function OnMessageReceive(msg) {
     } else if (msg.Tag == "Pause") {
 
         $("#set-follow-check").prop("checked", false);
+
         $("#set-unfollow-check").prop("checked", false);
+
         $("#set-story-check").prop("checked", false);
+
         $("#set-like-check").prop("checked", false);
+
         $("#set-comment-check").prop("checked", false);
 
         // OnStoryMedia(msg.Media);
     } else if (msg.Tag == "OnCommentedMediaComplete") {
 
-
         OnCommentedMedia(msg.Media);
     } else if (msg.Tag == "Settings") {
+
         SetSettings(msg.Settings);
     } else if (msg.Tag == "AddedWhitelistUsers") {
+
         ClearWhitelistTable();
         AddedWhitelistUsers(msg.Users);
     } else if (msg.Tag == "UpdatedWhitelistUsers") {
+
         AddedWhitelistUsers(msg.Users);
     } else if (msg.Tag == "UserLoggedIn") {
-
         logged_in = true;
         loadedAccounts = false;
 
         SendMessage("RequestFollowStatus", "Num", DisplayFollowersNum);
+
         $("#overlay").hide();
+
         if (paid_sub) {
             SendMessage("SetPaidMode", "paid", true);
+
             $('.sub-user').hide();
             $("#purchase").hide();
             $("#upgrade").hide();
@@ -5666,63 +5422,75 @@ function OnMessageReceive(msg) {
         }
 
         if (comment_val == true || like_val == true || follow_val == true || unfollow_val == true) {
-            $("#progress").attr("src", "disk.gif");
+            $("#progress").attr("src", "../icons/disk.gif");
         } else {
-            $("#progress").attr("src", "icon.gif");
+            $("#progress").attr("src", "../icons/icon.gif");
         }
-  
-
 
     } else if (msg.Tag == "UserLoggedOut") {
         logged_in = false;
+        
         loadedAccounts = false;
+
         if (!(mode == "twitter") && !(mode == "tiktok") && !$("#set-story-check").is(':checked') && !$("#set-like-check").is(':checked') && !$("#set-follow-check").is(':checked') && !$("#set-unfollow-check").is(':checked') && !$("#set-comment-check").is(':checked')) {
             $("#overlay").show();
-
         }
-        setTimeout(function() {
+        
+        setTimeout(function () {
             if (!logged_in) {
                 SendMessage("OpenInstagram", "Speed", 1);
             }
         }, 10000);
+
     } else if (msg.Tag == "ReceiveFilteredFollowings") {
+
         ProcessFilteredFollowings(msg.Users);
     } else if (msg.Tag == "RankTargets") {
 
         RankTargets(msg.recents);
-
-
     } else if (msg.Tag == "ReceiveWhitelistStatus") {
+
         SetWhitelistStatus(msg.Status);
     } else if (msg.Tag == "UpdateMediaStatus") {
+
         UpdateMediaStatus(msg.Status);
     } else if (msg.Tag == "Error" && msg.type == "FollowError") {
+
         $("#errors").html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Follow Usage Limit Warning!</strong> The bot is slowing down on follows for 30 minutes. Log out at Instagram.com to delete your cookies. If this message persists, test Instagram.com to check if you have a 3 day block, and wait if you do. We recommend using the story viewer, since it has much higher limits. </div>");
 
     } else if (msg.Tag == "Error" && msg.type == "UnfollowError") {
+
         $("#errors").html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Unfollow Usage Limit Warning!</strong> The bot is slowing down on unfollows for 30 minutes.  Log out at Instagram.com to delete your cookies. If this message persists, test Instagram.com to check if you have a 3 day block, and wait if you do. We recommend using the story viewer, since it has much higher limits. </div>");
     } else if (msg.Tag == "Error" && msg.type == "LikeError") {
+
         $("#errors").html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Likes Usage Limit Warning!</strong> The bot is sleeping on likes for 30 minutes.  Log out at Instagram.com to delete your cookies. If this message persists, test Instagram.com to check if you have a 3 day block, and wait if you do. We recommend using the story viewer, since it has much higher limits. </div>");
     } else if (msg.Tag == "Error" && msg.type == "StoryError") {
+
         $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Randomly sleeping on story viewing for a bit to appear human. Hang tight for 2-30 minutes.</div>");
     } else if (msg.Tag == "Error" && msg.type == "CommentError") {
+
         $("#errors").html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Comments Usage Limit Warning!</strong> The bot is sleeping on comments for 30 minutes.  Log out at Instagram.com to delete your cookies. If this message persists, test Instagram.com to check if you have a 3 day block, and wait if you do. We recommend using the story viewer, since it has much higher limits. </div>");
     }
 }
 
-
 function ImportDatabase(event) {
+
     var file = event.target.files[0];
+
     if (file) {
+
         var fileReader = new FileReader();
-        fileReader.onload = function(event) {
+
+        fileReader.onload = function (event) {
+
             var content = event.target.result;
+
             SendMessage("ImportDatabase", "Database", content);
         }
         fileReader.readAsText(file);
     }
-    alert("Loaded Database Successfully!");
 
+    alert("Loaded Database Successfully!");
 }
 
 function SetSettings(settings) {
@@ -5746,10 +5514,10 @@ function SetSettings(settings) {
     $("#input-unfollow-days").val(settings.UnfollowAfterDays);
     $("#set-slow-check").prop("checked", settings.slow);
     $("#set-cloud-check").prop("checked", user_cloud && cloud_backup);
-  
+
 
 }
-Array.prototype.unique = function() {
+Array.prototype.unique = function () {
     var a = this.concat();
     for (var i = 0; i < a.length; ++i) {
         for (var j = i + 1; j < a.length; ++j) {
@@ -5818,10 +5586,6 @@ function SaveSettings() {
     day = dd;
 
     SendMessage("UpdateSettings", "Settings", settings);
-
-
-
-
 }
 
 function ResetSettings() {
@@ -5876,14 +5640,11 @@ function RemoveCollectJobTagLinkedin(button) {
         global_tags.splice(index, 1);
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
-
 }
 
 function RemoveCollectJobTagPinterest(button) {
     var user_id = $(button).attr("user_id");
     $(button).closest("tr").remove();
-
 
     SendMessage("RemoveTagFromListPinterest", "TagName", user_id);
     var index = global_tags.indexOf(user_id);
@@ -5891,7 +5652,6 @@ function RemoveCollectJobTagPinterest(button) {
         global_tags.splice(index, 1);
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
 
 }
 
@@ -5907,13 +5667,11 @@ function RemoveCollectJobTagTikTok(button) {
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
 }
 
 function RemoveCollectJobTagfacebook(button) {
     var user_id = $(button).attr("user_id");
     $(button).closest("tr").remove();
-
 
     SendMessage("RemoveTagFromListfacebook", "TagName", user_id);
     var index = global_tags.indexOf(user_id);
@@ -5922,13 +5680,11 @@ function RemoveCollectJobTagfacebook(button) {
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
 }
 
 function RemoveCollectJobTagTwitter(button) {
     var user_id = $(button).attr("user_id");
     $(button).closest("tr").remove();
-
 
     SendMessage("RemoveTagFromListTwitter", "TagName", user_id);
     var index = global_tags.indexOf(user_id);
@@ -5937,13 +5693,11 @@ function RemoveCollectJobTagTwitter(button) {
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
 }
 
 function RemoveCollectJobTag(button) {
     var user_id = $(button).attr("user_id");
     $(button).closest("tr").remove();
-
 
     SendMessage("RemoveTagFromList", "TagName", user_id);
     var index = global_tags.indexOf(user_id);
@@ -5952,19 +5706,16 @@ function RemoveCollectJobTag(button) {
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
 
-
 }
 
 function RemoveLocationJobTag(button) {
     var user_id = $(button).attr("user_id");
     $(button).closest("tr").remove();
 
-
     SendMessage("RemoveLocationFromList", "TagName", user_id);
     if (index > -1) {
     }
     SendMessage("RequestMediaStatus", "Num", DisplayLikesNum);
-
 
 }
 
@@ -5978,9 +5729,8 @@ function RemoveCollectJobUser(button) {
 function UpdateFollowers(status) {
     my_followers = my_followers.concat(status);
     SendMessage("SendMyFollowers", "followers", my_followers);
-
 }
-Date.prototype.isSameDateAs = function(pDate) {
+Date.prototype.isSameDateAs = function (pDate) {
     return (
         this.getFullYear() === pDate.getFullYear() &&
         this.getMonth() === pDate.getMonth() &&
@@ -5990,50 +5740,45 @@ Date.prototype.isSameDateAs = function(pDate) {
 
 function UpdateAccountsDict(status) {
     account_dict = status;
-
-
 }
 
 function UpdateTagsDict(status) {
     hashtag_dict = status;
-
-
 }
 
 function UpdateStatus(status) {
 
-
     hoursLeft = status.hoursLeft;
-
 
     if (updated_cloud) {
         if (roughSizeOfObject(cloud_db) < 15000000) {
-
-           
+            // No logic provided.
         }
         updated_cloud = false;
     }
+
     if (emailed == false && follow_count_num < 1000 && follow_count_num != 0) {
         SendMessage("SetSpeed", "Num", 2);
-        
+
         $("#fast").removeClass('active');
         $("#slow").removeClass('active');
         $("#medium").addClass('active');
-
-        $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> Instoo has detected you have a smaller account with under 1,000 followers. Speeds will naturally ramp up to 2x faster after you pass 1,000 followers.<br><br></div>");
-
+        $("#errors").html(`
+            <div class='alert alert-success alert-dismissible' role='alert'>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+            </button> Instoo has detected you have a smaller account with under 1,000 followers. Speeds will naturally ramp up to 2x faster after you pass 1,000 followers.<br><br>
+            </div>`
+            );
     }
 
-
     if (emailed == false && following_count_num < 1000 && following_count_num != 0) {
+
         SendMessage("SetSpeed", "Num", 2);
-        
         $("#fast").removeClass('active');
         $("#slow").removeClass('active');
         $("#medium").addClass('active');
-
         $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> Instoo has detected you have a smaller account that is following under 1000 other users(as in people you follow). Speeds will naturally ramp up to 2x faster after you follow more than 1000 users.<br><br></div>");
-
     }
     if (emailed == false && following_count_num < 200 && following_count_num != 0) {
 
@@ -6044,7 +5789,7 @@ function UpdateStatus(status) {
         SendMessage("SetSpeed", "Num", 8);
         $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> Instoo has detected you have a smaller account, following under 200 users(meaning users you follow). Please pause Instoo and manually follow over 200, since Instoo allows medium(4x faster speeds) after 200. You should post photos regularly, and use the account by liking/following until you pass 200 followers and following. This takes most users a few days. Then it takes most users 1-2 months on medium mode to reach 1,000 followers, which allows fast mode. Contact the live chat to request target research from our account manager to help start. <br><br></div>");
         alert("Instoo has detected you have a smaller account, following under 200 users(meaning users you follow). Please pause Instoo and manually follow over 200, since Instoo allows medium(4x faster speeds) after 200. You should post photos regularly, and use the account by liking/following until you pass 200 followers and following. This takes most users a few days. Then it takes most users 1-2 months on medium mode to reach 1,000 followers, which allows fast mode. Contact the live chat to request target research from our account manager to help start. ");
-       
+
         SetFollowValue(false);
         SetUnfollowValue(false);
         SetStoryValue(false);
@@ -6055,26 +5800,23 @@ function UpdateStatus(status) {
         $("#set-story-check").prop("checked", false);
         $("#set-like-check").prop("checked", false);
         $("#set-comment-check").prop("checked", false);
+
         if (emailed == false) {
-          
             emailed = true;
         }
     }
 
-
     if (emailed == false && follow_count_num < 200 && follow_count_num != 0) {
-
 
         SendMessage("SetSpeed", "Num", 8);
 
-        
         $("#fast").removeClass('active');
         $("#slow").addClass('active');
         $("#medium").removeClass('active');
 
         $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> Instoo has detected you have a smaller account with under 200 followers. Please pause Instoo and manually raise your followers over 200, since Instoo allows medium(4x faster speeds) after 200. You should post photos regularly, and use the account by liking/following until you pass 200 followers. This takes most users a few days. Then it takes most users 1-2 months on medium mode to reach 1,000 followers, which allows fast mode. Contact the live chat to request target research from our account manager to help start. <br><br></div>");
         alert(" Instoo has detected you have a smaller account with under 200 followers. Please pause Instoo and manually raise your followers over 200, since Instoo allows medium(4x faster speeds) after 200. You should post photos regularly, and use the account by liking/following until you pass 200 followers. This takes most users a few days. Then it takes most users 1-2 months on medium mode to reach 1,000 followers, which allows fast mode. Contact the live chat to request target research from our account manager to help start. ");
-        
+
         SetFollowValue(false);
         SetUnfollowValue(false);
         SetStoryValue(false);
@@ -6086,7 +5828,6 @@ function UpdateStatus(status) {
         $("#set-like-check").prop("checked", false);
         $("#set-comment-check").prop("checked", false);
         if (emailed == false) {
-         
             emailed = true;
         }
     }
@@ -6112,6 +5853,7 @@ function UpdateStatus(status) {
     addIdeal = status.addIdeal;
     unfollowInstoo = status.unfollowInstoo;
     collectSelfFollowers = status.collectSelfFollowers;
+
     if (status.UserPool.length > 1000 || status.MediaPool.length > 1000) {
         SendMessage("ClearMemory", "story", "");
     }
@@ -6135,6 +5877,7 @@ function UpdateStatus(status) {
 
         $("#set-follow-tiktok-check").prop("checked", status.StartTikTokFollow);
         $("#set-like-tiktok-check").prop("checked", status.StartTikTokLike);
+
     } else if (dashboardMode == 7) {
 
         $("#follow_facebook_set").html("Friends/day: " + status.MaxfacebookFollows);
@@ -6148,6 +5891,7 @@ function UpdateStatus(status) {
 
         $("#set-follow-facebook-check").prop("checked", status.StartfacebookFollow);
         $("#set-like-facebook-check").prop("checked", status.StartfacebookLike);
+
     } else if (dashboardMode == 6) {
 
         $("#follow-pool-pinterest-num").text(status.FollowedPoolPinterestSize);
@@ -6161,8 +5905,8 @@ function UpdateStatus(status) {
 
         $("#set-follow-pinterest-check").prop("checked", status.StartPinterestFollow);
         $("#set-like-pinterest-check").prop("checked", status.StartPinterestLike);
-    } else if (dashboardMode == 0) {
 
+    } else if (dashboardMode == 0) {
 
         $("#user-pool-num").text(status.UserPoolSize);
         $("#follow-pool-num").text(status.FollowedPoolSize);
@@ -6188,7 +5932,9 @@ function UpdateStatus(status) {
         $("#set-story-check").prop("checked", status.StartStory);
         $("#set-like-check").prop("checked", status.StartLike);
         $("#set-comment-check").prop("checked", status.StartComment);
+
     } else if (dashboardMode == 2) {
+
         $("#follow-pool-twitter-num").text(status.FollowedPoolTwitter.length);
         $("#like-pool-twitter-num").text(status.LikedMediaTwitter.length);
         $("#customRangeTwitterFollows").val(status.MaxTwitterFollows);
@@ -6199,8 +5945,8 @@ function UpdateStatus(status) {
 
         $("#set-follow-twitter-check").prop("checked", status.StartTwitterFollow);
         $("#set-like-twitter-check").prop("checked", status.StartTwitterLike);
-    } else if (dashboardMode == 3) {
 
+    } else if (dashboardMode == 3) {
 
         $("#like-pool-tinder-num").text(status.LikedMediaTinder.length);
         $("#customRangeTinderLikes").val(status.MaxTinderLikes);
@@ -6211,7 +5957,9 @@ function UpdateStatus(status) {
         $("#set-comment-tinder-check").prop("checked", status.StartComment);
 
         $("#set-like-tinder-check").prop("checked", status.StartTinderLike);
+
     } else if (dashboardMode == 5) {
+
         linkedin_data = status.linkedin_data;
         $("#follow-pool-linkedin-num").text(status.FollowedPoolLinkedin.length);
 
@@ -6224,18 +5972,20 @@ function UpdateStatus(status) {
         $("#set-follow-Linkedin-check").prop("checked", status.StartLinkedinFollow);
 
         $("#set-like-Linkedin-check").prop("checked", status.StartLinkedinLike);
+
     }
+
     if (status.CurrentUser) {
 
         $("#overlay").hide();
 
-
         $(".img-current-user").attr("src", status.CurrentUser.user_pic_url);
         $(".img-current-user").show();
+        
         if (typeof CurrentUser != "undefined" && CurrentUser.username != status.CurrentUser.username && status.CurrentUser.username.length > 0) {
             SendMessage("LoadAccount", "account", status.CurrentUser.username);
-
         }
+
         CurrentUser = status.CurrentUser;
 
         if (CurrentUser.username.length > 0 && postedInst == false) {
@@ -6244,10 +5994,10 @@ function UpdateStatus(status) {
             var user_plan = $("#plan").attr("name");
 
             $.post('https://instoo.com/user/postInst', {
-                    email: user_email,
-                    username: CurrentUser.username
-                },
-                function(returnedData) {
+                email: user_email,
+                username: CurrentUser.username
+            },
+                function (returnedData) {
                     if (returnedData && returnedData.length > 1 && user_plan != "lifetime") {
                         $("#trial").show();
                         SetFollowValue(false);
@@ -6268,11 +6018,9 @@ function UpdateStatus(status) {
 
         if (started == false) {
 
-
             $("#errors").html("");
-            var user_plan ="lifetime";
-     
-     
+            var user_plan = "lifetime";
+
             if (status.CurrentUser.user_id) {
                 var data2 = status.user_stats;
                 if ($("#data2").attr("name") && $("#data2").attr("name").length > 2) {
@@ -6291,13 +6039,18 @@ function UpdateStatus(status) {
                 var counter = 0;
                 var minimum = 10000;
                 var labels = [];
+
                 for (var index = data2.length - 1; index > data2.length - 100; index--) {
+                    
                     if (index >= 0) {
                         var obj = data2[index];
+
                         if (CurrentUser && obj.user_id == CurrentUser.user_id && (chart_data.length < 2 || Math.abs(parseInt(obj.followers) - chart_data[chart_data.length - 1]) < 200)) {
+
                             chart_data.push(
                                 parseInt(obj.followers)
                             );
+
                             if (obj.followers > max) {
                                 max = obj.followers;
                             }
@@ -6313,6 +6066,7 @@ function UpdateStatus(status) {
                         }
                     }
                 }
+
                 chart_data.reverse();
 
                 if (chart_data.length > 1) {
@@ -6320,6 +6074,7 @@ function UpdateStatus(status) {
                     if (max - min > 100) {
                     }
                 }
+
                 let config = {
                     type: 'line',
                     data: {
@@ -6369,36 +6124,39 @@ function UpdateStatus(status) {
 
                 let ctx = document.getElementById('canvas').getContext('2d');
                 ctx.height = 250;
-
                 let myLine = new Chart(ctx, config);
-
             }
-
-
-
 
             started = true;
             if (status.hoursLeft > 0) {
-                setTimeout(function() {
+                setTimeout(function () {
+
                     hoursLeft = 0;
+
                     $("#set-follow-check").prop("checked", false);
                     SetFollowValue(false);
+
                     $("#set-like-check").prop("checked", false);
                     SetLikeValue(false);
+
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
+
                     $("#set-unfollow-check").prop("checked", false);
                     SetUnfollowValue(false);
+
                     SendMessage("ZeroHour", "Database", "obj");
-
                     SetStoryValue(false);
-                    $("#set-story-check").prop("checked", false);
 
+                    $("#set-story-check").prop("checked", false);
                     $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Congrats! Instoo has run for a full day. All actions turned off after 8 hours automatically. Turn it on again tomorrow to grow constantly daily =)</div>");
+
                     var data2 = [];
+
                     if ($("#data2").attr("name") && $("#data2").attr("name").length > 2) {
                         data2 = [];
                     }
+
                     var chart_data = null;
                     chart_data = [];
                     var minimum = 10000;
@@ -6465,15 +6223,15 @@ function UpdateStatus(status) {
                         email_msg = "Based on your activity logs, only stories + likes ran. We highly recommend using follows as well to trigger the Instagram promotion algorithm and achieve the average growth rates on fast mode. Contact the live chat for help researching targets.";
                     }
 
-                    if(last_ten_min != 100000 && 
-                        last_ten_max != 0){
-                 
-                }else{
-                  
-                }
+                    if (last_ten_min != 100000 &&
+                        last_ten_max != 0) {
+
+                    } else {
+
+                    }
 
                 }, status.hoursLeft * 60 * 60 * 1000);
-            }else{
+            } else {
 
 
                 $("#set-follow-check").prop("checked", false);
@@ -6489,7 +6247,7 @@ function UpdateStatus(status) {
                 $("#set-story-check").prop("checked", false);
 
                 $("#errors").html("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Congrats! Instoo has run for a full day. All actions turned off after 8 hours automatically. Turn it on again tomorrow to grow constantly daily =) Click 'reset limits' on the settings page if the daily 8 hour counter has not reset today accidentally.</div>");
-             
+
             }
             console.log("Hours left: " + status.hoursLeft * 60 * 60 * 1000);
             console.log(hoursLeft);
@@ -6502,7 +6260,7 @@ function UpdateStatus(status) {
 
 
 
-            
+
 
             getFollowers();
 
@@ -6517,7 +6275,7 @@ function UpdateStatus(status) {
 
 
     UpdateCollectJobStatus(status.AccountTargets);
-   if (status.StoryTime.Time / status.StoryTime.Max < -.05 && $("#set-story-check").is(':checked')) {
+    if (status.StoryTime.Time / status.StoryTime.Max < -.05 && $("#set-story-check").is(':checked')) {
 
         $("#errors").html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>You have not added any targets. Please add some account targets.</div>");
     }
@@ -6554,7 +6312,7 @@ function NewWhitelistUserSearch(input) {
 function FilterWhitelistSearch(input) {
     var text = $(input).val().toLowerCase();
     var whitelist_block = $("#whitelisted-users");
-    $(whitelist_block).find("tr").each(function() {
+    $(whitelist_block).find("tr").each(function () {
         if ($(this).text().toLowerCase().indexOf(text) < 0 && text != "") {
             $(this).hide();
         } else {
@@ -6594,14 +6352,14 @@ function onLicenseFetched(error, status, response) {
             extensionIconSettings({
                 color: [0, 0, 0, 0]
             }, "", "Instoo is enabled.");
-           
+
         } else if (licenseStatus === "Free") {
             window.localStorage.setItem('instooislicensed', 'true');
             extensionIconSettings({
                 color: [255, 0, 0, 0]
             }, "", window.localStorage.getItem('daysLeftInappnameTrial') + " days left in free trial.");
         } else if (licenseStatus === "unknown") {
-           
+
             $("#purchase").hide();
 
             window.localStorage.setItem('instooislicensed', 'false');
@@ -6650,11 +6408,11 @@ function parseLicense(license) {
         daysAgoLicenseIssued = daysAgoLicenseIssued / 1000 / 60 / 60 / 24;
         if (daysAgoLicenseIssued <= TRIAL_PERIOD_DAYS) {
             window.localStorage.setItem('daysLeftInCGTrial', TRIAL_PERIOD_DAYS - daysAgoLicenseIssued);
-         
+
             $("#upgrade").hide();
-    LicenseStatus = "Free";
+            LicenseStatus = "Free";
         } else {
-           
+
 
             LicenseStatus = "None";
         }
@@ -6664,7 +6422,7 @@ function parseLicense(license) {
 
 
         LicenseStatus = "None";
-   
+
     }
 
 
@@ -6689,7 +6447,7 @@ function xhrWithAuth(method, url, interactive, callback) {
     function getToken() {
         chrome.identity.getAuthToken({
             interactive: interactive
-        }, function(token) {
+        }, function (token) {
             if (chrome.runtime.lastError) {
                 callback(chrome.runtime.lastError);
                 return;
@@ -6703,13 +6461,13 @@ function xhrWithAuth(method, url, interactive, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url);
         xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-        xhr.onreadystatechange = function(oEvent) {
+        xhr.onreadystatechange = function (oEvent) {
             if (xhr.readyState === 4) {
                 if (xhr.status === 401 && retry) {
                     retry = false;
                     chrome.identity.removeCachedAuthToken({
-                            'token': access_token
-                        },
+                        'token': access_token
+                    },
                         getToken);
                 } else if (xhr.status === 200) {
                     callback(null, xhr.status, xhr.response);
@@ -7034,7 +6792,7 @@ function UpdateMediaStatus(Status) {
             }
         }
         html += "</table><script>function editInstaConnected(num){ window.postMessage({mode: 'Instaconnected' ,edit: num} , '*');} function editInstaBirthday(num){ window.postMessage({mode: 'Instabirthday' ,edit: num} , '*');}function editInstaTwitter(num){ window.postMessage({mode: 'Instatwitter' ,edit: num} , '*');} function editInstaWebsite(num){ window.postMessage({mode: 'Instawebsite' ,edit: num} , '*');} function editInstaTarget(num){ window.postMessage({mode: 'Instatarget' ,edit: num} , '*');} function editInstaSales(num){ window.postMessage({mode: 'Instasales' ,edit: num} , '*');}function editInstaEmail(num){ window.postMessage({mode: 'Instaemail' ,edit: num} , '*');}function editConnected(num){ window.postMessage({mode: 'connected' ,edit: num} , '*');} function editBirthday(num){ window.postMessage({mode: 'birthday' ,edit: num} , '*');}function editTwitter(num){ window.postMessage({mode: 'twitter' ,edit: num} , '*');} function editWebsite(num){ window.postMessage({mode: 'website' ,edit: num} , '*');} function editTarget(num){ window.postMessage({mode: 'target' ,edit: num} , '*');} function editSales(num){ window.postMessage({mode: 'sales' ,edit: num} , '*');}function editEmail(num){ window.postMessage({mode: 'email' ,edit: num} , '*');}</script>";
-      
+
 
         $(like_block).prepend(html);
 
@@ -7054,50 +6812,50 @@ function UpdateMediaStatus(Status) {
         $(target_block).html(html_target);
 
     } else
-    if (mode == "instagram") {
-        var like_block = $("#like-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
+        if (mode == "instagram") {
+            var like_block = $("#like-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
 
-        for (var i = 0; i < Status.LikedMedias.length; i++) {
-            OnLikedMedia(Status.LikedMedias[i]);
-        }
-        var story_block = $("#story-block");
-        var story_table = $(story_block).find("tbody");
-        $(story_table).empty();
+            for (var i = 0; i < Status.LikedMedias.length; i++) {
+                OnLikedMedia(Status.LikedMedias[i]);
+            }
+            var story_block = $("#story-block");
+            var story_table = $(story_block).find("tbody");
+            $(story_table).empty();
 
-        for (var i = 0; i < Status.StoryMedia.length; i++) {
+            for (var i = 0; i < Status.StoryMedia.length; i++) {
 
-            OnStoryMedia(Status.StoryMedia[i]);
-        }
-
-
-        var comment_block = $("#comment-block");
-        var comment_table = $(comment_block).find("tbody");
-        $(comment_table).empty();
-
-        for (var i = 0; i < Status.CommentedMedias.length; i++) {
-            OnCommentedMedia(Status.CommentedMedias[i]);
-        }
-
-
-
-
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        var added_tags = [];
-        for (var i = 0; i < Status.Tags.length; i++) {
-            var index = global_tags.indexOf(Status.Tags[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.Tags[i].tag_name + "<br>");
+                OnStoryMedia(Status.StoryMedia[i]);
             }
 
-            var user = Status.Tags[i].tag_name;
-            if (true) {
-                added_tags.push(user);
 
-                var userRow = `
+            var comment_block = $("#comment-block");
+            var comment_table = $(comment_block).find("tbody");
+            $(comment_table).empty();
+
+            for (var i = 0; i < Status.CommentedMedias.length; i++) {
+                OnCommentedMedia(Status.CommentedMedias[i]);
+            }
+
+
+
+
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            var added_tags = [];
+            for (var i = 0; i < Status.Tags.length; i++) {
+                var index = global_tags.indexOf(Status.Tags[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.Tags[i].tag_name + "<br>");
+                }
+
+                var user = Status.Tags[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7105,21 +6863,21 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
+                    $(tag_table).prepend(userRow);
+                }
             }
-        }
-        var tag_block2 = $("#collect-locations-block");
-        var tag_table2 = $(tag_block2).find("tbody");
-        $(tag_table2).empty();
-        for (var i = 0; i < Status.Locations.length; i++) {
-            if (index == -1) {
-            }
+            var tag_block2 = $("#collect-locations-block");
+            var tag_table2 = $(tag_block2).find("tbody");
+            $(tag_table2).empty();
+            for (var i = 0; i < Status.Locations.length; i++) {
+                if (index == -1) {
+                }
 
-            var user = Status.Locations[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+                var user = Status.Locations[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
 
-                var userRow = `
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-location-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     
@@ -7127,22 +6885,22 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table2).prepend(userRow);
-            }
-        }
-
-       var tag_block3 = $("#collect-comments-block");
-        var tag_table3 = $(tag_block3).find("tbody");
-        $(tag_table3).empty();
-        for (var i = 0; i < Status.Comments.length; i++) {
-            if (index == -1) {
+                    $(tag_table2).prepend(userRow);
+                }
             }
 
-            var user = Status.Comments[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+            var tag_block3 = $("#collect-comments-block");
+            var tag_table3 = $(tag_block3).find("tbody");
+            $(tag_table3).empty();
+            for (var i = 0; i < Status.Comments.length; i++) {
+                if (index == -1) {
+                }
 
-                var userRow = `
+                var user = Status.Comments[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-comment-collect" user_id="` + user + `"><i class="fas fa-times"></i></button></td>
     
@@ -7150,46 +6908,46 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table3).prepend(userRow);
-            }
-        }
-
- 
-    } else if (mode == "twitter") {
-        var like_block = $("#like-twitter-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
-
-        for (var i = 0; i < Status.LikedMediaTwitter.length; i++) {
-            if (Status.LikedMediaTwitter[i]) {
-                OnLikedMediaTwitter(Status.LikedMediaTwitter[i]);
-            }
-        }
-        var follow_block = $("#follow-block-twitter");
-        var follow_table = $(follow_block).find("tbody");
-        $(follow_table).empty()
-
-        for (var i = 0; i < Status.FollowedPoolTwitter.length; i++) {
-            if (Status.FollowedPoolTwitter[i]) {
-                OnFollowedUserTwitter(Status.FollowedPoolTwitter[i]);
-            }
-        }
-
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        var added_tags = [];
-        for (var i = 0; i < Status.TagPoolTwitter.length; i++) {
-            var index = global_tags.indexOf(Status.TagPoolTwitter[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.TagPoolTwitter[i].tag_name + "<br>");
+                    $(tag_table3).prepend(userRow);
+                }
             }
 
-            var user = Status.TagPoolTwitter[i].tag_name;
-            if (true) {
-                added_tags.push(user);
 
-                var userRow = `
+        } else if (mode == "twitter") {
+            var like_block = $("#like-twitter-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
+
+            for (var i = 0; i < Status.LikedMediaTwitter.length; i++) {
+                if (Status.LikedMediaTwitter[i]) {
+                    OnLikedMediaTwitter(Status.LikedMediaTwitter[i]);
+                }
+            }
+            var follow_block = $("#follow-block-twitter");
+            var follow_table = $(follow_block).find("tbody");
+            $(follow_table).empty()
+
+            for (var i = 0; i < Status.FollowedPoolTwitter.length; i++) {
+                if (Status.FollowedPoolTwitter[i]) {
+                    OnFollowedUserTwitter(Status.FollowedPoolTwitter[i]);
+                }
+            }
+
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            var added_tags = [];
+            for (var i = 0; i < Status.TagPoolTwitter.length; i++) {
+                var index = global_tags.indexOf(Status.TagPoolTwitter[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.TagPoolTwitter[i].tag_name + "<br>");
+                }
+
+                var user = Status.TagPoolTwitter[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td></td>
@@ -7197,41 +6955,41 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
-            }
-        }
-
-    } else if (mode == "tiktok") {
-        var like_block = $("#like-tiktok-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
-
-        for (var i = 0; i < Status.LikedMediaTikTok.length; i++) {
-            OnLikedMediaTikTok(Status.LikedMediaTikTok[i]);
-        }
-        var follow_block = $("#follow-block-tiktok");
-        var follow_table = $(follow_block).find("tbody");
-        $(follow_table).empty()
-
-        for (var i = 0; i < Status.FollowedPoolTikTok.length; i++) {
-            OnFollowedUserTikTok(Status.FollowedPoolTikTok[i]);
-        }
-
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        var added_tags = [];
-        for (var i = 0; i < Status.TagsTikTok.length; i++) {
-            var index = global_tags.indexOf(Status.TagsTikTok[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.TagsTikTok[i].tag_name + "<br>");
+                    $(tag_table).prepend(userRow);
+                }
             }
 
-            var user = Status.TagsTikTok[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+        } else if (mode == "tiktok") {
+            var like_block = $("#like-tiktok-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
 
-                var userRow = `
+            for (var i = 0; i < Status.LikedMediaTikTok.length; i++) {
+                OnLikedMediaTikTok(Status.LikedMediaTikTok[i]);
+            }
+            var follow_block = $("#follow-block-tiktok");
+            var follow_table = $(follow_block).find("tbody");
+            $(follow_table).empty()
+
+            for (var i = 0; i < Status.FollowedPoolTikTok.length; i++) {
+                OnFollowedUserTikTok(Status.FollowedPoolTikTok[i]);
+            }
+
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            var added_tags = [];
+            for (var i = 0; i < Status.TagsTikTok.length; i++) {
+                var index = global_tags.indexOf(Status.TagsTikTok[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.TagsTikTok[i].tag_name + "<br>");
+                }
+
+                var user = Status.TagsTikTok[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7239,42 +6997,42 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
-            }
-        }
-
-    } else if (mode == "facebook") {
-        var like_block = $("#like-facebook-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
-
-        for (var i = 0; i < Status.LikedMediafacebook.length; i++) {
-            OnLikedMediafacebook(Status.LikedMediafacebook[i]);
-        }
-        var follow_block = $("#follow-block-facebook");
-        var follow_table = $(follow_block).find("tbody");
-        $(follow_table).empty()
-
-        for (var i = 0; i < Status.FollowedPoolfacebook.length; i++) {
-            OnFollowedUserfacebook(Status.FollowedPoolfacebook[i]);
-        }
-
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        console.log(Status);
-        var added_tags = [];
-        for (var i = 0; i < Status.Tagsfacebook.length; i++) {
-            var index = global_tags.indexOf(Status.Tagsfacebook[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.Tagsfacebook[i].tag_name + "<br>");
+                    $(tag_table).prepend(userRow);
+                }
             }
 
-            var user = Status.Tagsfacebook[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+        } else if (mode == "facebook") {
+            var like_block = $("#like-facebook-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
 
-                var userRow = `
+            for (var i = 0; i < Status.LikedMediafacebook.length; i++) {
+                OnLikedMediafacebook(Status.LikedMediafacebook[i]);
+            }
+            var follow_block = $("#follow-block-facebook");
+            var follow_table = $(follow_block).find("tbody");
+            $(follow_table).empty()
+
+            for (var i = 0; i < Status.FollowedPoolfacebook.length; i++) {
+                OnFollowedUserfacebook(Status.FollowedPoolfacebook[i]);
+            }
+
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            console.log(Status);
+            var added_tags = [];
+            for (var i = 0; i < Status.Tagsfacebook.length; i++) {
+                var index = global_tags.indexOf(Status.Tagsfacebook[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.Tagsfacebook[i].tag_name + "<br>");
+                }
+
+                var user = Status.Tagsfacebook[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7282,29 +7040,29 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
+                    $(tag_table).prepend(userRow);
 
-            }
-        }
-
-
-
-        var tag_block = $("#collect-accounts-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        console.log(Status);
-        var added_tags = [];
-        for (var i = 0; i < Status.AccountPoolfacebook.length; i++) {
-            var index = global_tags.indexOf(Status.AccountPoolfacebook[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.AccountPoolfacebook[i].tag_name + "<br>");
+                }
             }
 
-            var user = Status.AccountPoolfacebook[i].tag_name;
-            if (true) {
-                added_tags.push(user);
 
-                var userRow = `
+
+            var tag_block = $("#collect-accounts-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            console.log(Status);
+            var added_tags = [];
+            for (var i = 0; i < Status.AccountPoolfacebook.length; i++) {
+                var index = global_tags.indexOf(Status.AccountPoolfacebook[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.AccountPoolfacebook[i].tag_name + "<br>");
+                }
+
+                var user = Status.AccountPoolfacebook[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7312,44 +7070,44 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
+                    $(tag_table).prepend(userRow);
 
+
+                }
 
             }
 
-        }
+        } else if (mode == "pinterest") {
+            var like_block = $("#like-pinterest-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
 
-    } else if (mode == "pinterest") {
-        var like_block = $("#like-pinterest-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
+            for (var i = 0; i < Status.LikedMediaPinterest.length; i++) {
+                OnLikedMediaPinterest(Status.LikedMediaPinterest[i]);
+            }
+            var follow_block = $("#follow-block-pinterest");
+            var follow_table = $(follow_block).find("tbody");
+            $(follow_table).empty()
 
-        for (var i = 0; i < Status.LikedMediaPinterest.length; i++) {
-            OnLikedMediaPinterest(Status.LikedMediaPinterest[i]);
-        }
-        var follow_block = $("#follow-block-pinterest");
-        var follow_table = $(follow_block).find("tbody");
-        $(follow_table).empty()
-
-        for (var i = 0; i < Status.FollowedPoolPinterest.length; i++) {
-            OnFollowedUserPinterest(Status.FollowedPoolPinterest[i]);
-        }
-
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        var added_tags = [];
-        for (var i = 0; i < Status.TagsPinterest.length; i++) {
-            var index = global_tags.indexOf(Status.TagsPinterest[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.TagsPinterest[i].tag_name + "<br>");
+            for (var i = 0; i < Status.FollowedPoolPinterest.length; i++) {
+                OnFollowedUserPinterest(Status.FollowedPoolPinterest[i]);
             }
 
-            var user = Status.TagsPinterest[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            var added_tags = [];
+            for (var i = 0; i < Status.TagsPinterest.length; i++) {
+                var index = global_tags.indexOf(Status.TagsPinterest[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.TagsPinterest[i].tag_name + "<br>");
+                }
 
-                var userRow = `
+                var user = Status.TagsPinterest[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7357,33 +7115,33 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
-            }
-        }
-
-    } else if (mode == "linkedin") {
-        var like_block = $("#like-linkedin-block");
-        var like_table = $(like_block).find("tbody");
-        $(like_table).empty();
-
-        for (var i = 0; i < Status.linkedin_data.length; i++) {
-            OnLikedMediaLinkedin(Status.linkedin_data[i]);
-        }
-        var tag_block = $("#collect-tags-block");
-        var tag_table = $(tag_block).find("tbody");
-        $(tag_table).empty();
-        var added_tags = [];
-        for (var i = 0; i < Status.TagPoolLinkedin.length; i++) {
-            var index = global_tags.indexOf(Status.TagPoolLinkedin[i].tag_name + "<br>");
-            if (index == -1) {
-                global_tags.push(Status.TagPoolLinkedin[i].tag_name + "<br>");
+                    $(tag_table).prepend(userRow);
+                }
             }
 
-            var user = Status.TagPoolLinkedin[i].tag_name;
-            if (true) {
-                added_tags.push(user);
+        } else if (mode == "linkedin") {
+            var like_block = $("#like-linkedin-block");
+            var like_table = $(like_block).find("tbody");
+            $(like_table).empty();
 
-                var userRow = `
+            for (var i = 0; i < Status.linkedin_data.length; i++) {
+                OnLikedMediaLinkedin(Status.linkedin_data[i]);
+            }
+            var tag_block = $("#collect-tags-block");
+            var tag_table = $(tag_block).find("tbody");
+            $(tag_table).empty();
+            var added_tags = [];
+            for (var i = 0; i < Status.TagPoolLinkedin.length; i++) {
+                var index = global_tags.indexOf(Status.TagPoolLinkedin[i].tag_name + "<br>");
+                if (index == -1) {
+                    global_tags.push(Status.TagPoolLinkedin[i].tag_name + "<br>");
+                }
+
+                var user = Status.TagPoolLinkedin[i].tag_name;
+                if (true) {
+                    added_tags.push(user);
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-tag-collect" user_id='` + user + `'><i class="fas fa-times"></i></button></td>
     <td>#</td>
@@ -7391,22 +7149,22 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table).prepend(userRow);
+                    $(tag_table).prepend(userRow);
+                }
             }
-        }
 
-    } else if (mode == "tinder") {
+        } else if (mode == "tinder") {
 
-        var tag_block3 = $("#collect-comments-block");
-        var tag_table3 = $(tag_block3).find("tbody");
-        $(tag_table3).empty();
-        for (var i = 0; i < Status.CommentsTinder.length; i++) {
-     
+            var tag_block3 = $("#collect-comments-block");
+            var tag_table3 = $(tag_block3).find("tbody");
+            $(tag_table3).empty();
+            for (var i = 0; i < Status.CommentsTinder.length; i++) {
 
-            var user = Status.CommentsTinder[i].tag_name;
-            if (true) {
 
-                var userRow = `
+                var user = Status.CommentsTinder[i].tag_name;
+                if (true) {
+
+                    var userRow = `
     <tr><td style="vertical-align: middle;">
     <button class="btn-danger remove-comment-collect" user_id="` + user + `"><i class="fas fa-times"></i></button></td>
     
@@ -7414,11 +7172,11 @@ function UpdateMediaStatus(Status) {
     
     </tr>
     `;
-                $(tag_table3).prepend(userRow);
+                    $(tag_table3).prepend(userRow);
+                }
             }
-        }
 
-    }
+        }
 }
 
 function UpdateFollowStatus(AllUsers) {

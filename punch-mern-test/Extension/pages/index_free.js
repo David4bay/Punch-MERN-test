@@ -1,3 +1,4 @@
+var iconPath = "icons/icon.png"
 var CurrentUser;
 var ComPort;
 var follow_count = 0;
@@ -56,9 +57,14 @@ ga.type = 'text/javascript';
 ga.async = true;
 ga.src = 'https://ssl.google-analytics.com/ga.js';
 var s = document.getElementsByTagName('script')[0];
+
 s.parentNode.insertBefore(ga, s);
+
 window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag(){
+    dataLayer.push(arguments);
+}
   gtag('js', new Date());
 
   gtag('config', 'AW-770495091');
@@ -238,7 +244,7 @@ $(document).ready(function() {
   
 
     $(".backup_picture").on("error", function(){
-        $(this).attr('src', 'icon.png');
+        $(this).attr('src', iconPath);
     });
 
     $("#sidebar-mosaic").click(function() {
@@ -285,7 +291,7 @@ $('#my-btns .btn').on('click', function(event) {
 
 
     $(".backup_picture").on("error", function(){
-        $(this).attr('src', 'icon.png');
+        $(this).attr('src', iconPath);
     });
 
 

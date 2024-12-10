@@ -452,7 +452,7 @@ a.onMessage.addListener(OnMessageReceive)
 chrome.runtime.onInstalled.addListener(
     function(a){ "install" == a.reason && (
         chrome.tabs.create(
-            {url:chrome.extension.getURL("bot.html")},
+            {url:chrome.extension.getURL("pages/bot.html")},
             function(b){ console.log(b)
 
             }),
@@ -469,7 +469,7 @@ chrome.runtime.onInstalled.addListener(
 chrome.browserAction.onClicked.addListener(
     function(a){
         chrome.tabs.create(
-        {url:chrome.extension.getURL("bot.html")},
+        {url:chrome.extension.getURL("pages/bot.html")},
         function(b){console.log(b)}
     );
 
@@ -914,13 +914,97 @@ SaveDatabase(); else if ("ClientError"==a.Tag) a.error.includes("ResizeObserver"
     url:"https://www.instagram.com/"
 }),setTimeout(
     function(){
-        SendMessage("SendUserHeader","firstTime",firstTime,ComPortContent);firstTime=!1},1E4))}}); else if ("Setaddideal"==a.Tag) addIdeal=a.addideal , SaveDatabase(); else if ("UpdateHours"==a.Tag) --hoursLeft, SaveDatabase(); else if ("Setunfollowinstoo"==a.Tag) unfollow_mode=a.unfollowInstoo, SaveDatabase(); else if ("UpdatePinterestFollowLimit"==a.Tag) MaxPinterestFollows=a.limit, SaveDatabase(); else if ("UpdatePinterestLikeLimit"==a.Tag) MaxPinterestLikes=a.limit,
-SaveDatabase();else if("UpdateLinkedinFollowLimit"==a.Tag)MaxLinkedinFollows=a.limit,SaveDatabase();else if("UpdateLinkedinLikeLimit"==a.Tag)MaxLinkedinLikes=a.limit,SaveDatabase();else if("UpdateTinderCommentLimit"==a.Tag)MaxTinderComments=a.limit,SaveDatabase();else if("UpdateTinderLikeLimit"==a.Tag)MaxTinderLikes=a.limit,SaveDatabase();else if("UpdateTwitterFollowLimit"==a.Tag)MaxTwitterFollows=a.limit,SaveDatabase();else if("UpdateTwitterLikeLimit"==a.Tag)MaxTwitterLikes=a.limit,SaveDatabase();
-else if("DODM"==a.Tag)"function"===typeof chrome.tabs.getAllInWindow?chrome.tabs.query({windowType:"normal"},function(e){for(var g=0;g<e.length;g++){var h=encodeURIComponent(e[g].url);encodeURIComponent(e[g].title);if(h.includes("instagram.com")){chrome.tabs.update(e[g].id,{url:"https://www.instagram.com/"+a.username});activeTab=g;--likeError;CurrentUser&&setTimeout(function(){CurrentUser&&(SendMessage("DODM","story",{StartReact:StartReact,reacts:reacts||[],CommentedMedia:CommentedMedia,maxComments:maxComments,
-CommentPool:CommentPool,backgroundDMs:backgroundDMs,StartComment:StartComment,RankedTargets:RankedTargets,recents:recents,currentSpeed:currentSpeed,storyUser:a.username,getStats:getStats,LikedMedia:LikedMedia,username:CurrentUser.username,Whitelist:Whitelist,StartUnfollow:StartUnfollow,StartFollow:StartFollow,StartLike:StartLike,maxFollows:maxFollows,FollowPoolSize:FollowedPool.length,maxLikes:maxLikes,LikePoolSize:likeCount,UnfollowPoolSize:UnfollowedPool.length,maxUnfollows:maxUnfollows,likeError:likeError},
-ComPortContent),savedDM={StartReact:StartReact,reacts:reacts||[],CommentedMedia:CommentedMedia,maxComments:maxComments,CommentPool:CommentPool,StartComment:StartComment,RankedTargets:RankedTargets,recents:recents,currentSpeed:currentSpeed,storyUser:a.username,getStats:getStats,LikedMedia:LikedMedia,username:CurrentUser.username,Whitelist:Whitelist,StartUnfollow:StartUnfollow,StartFollow:StartFollow,StartLike:StartLike,maxFollows:maxFollows,FollowPoolSize:FollowedPool.length,maxLikes:maxLikes,LikePoolSize:likeCount,
-UnfollowPoolSize:UnfollowedPool.length,maxUnfollows:maxUnfollows,likeError:likeError})},1E4);break}}}):browser.tabs.query({currentWindow:!0}).then(logTabsDM,onError);else if("SetDMMode"==a.Tag)backgroundDMs=a.mode,SaveDatabase();else if("userLogin"==a.Tag)SendMessage("userLogin","story","savedDM",ComPortContent),firstTime=!1;else if("SetEnableFilters"==a.Tag)EnableFilters=a.mode,SaveDatabase();else if("GetUserStats"==a.Tag)chrome.tabs.query({windowType:"normal"},function(e){for(var g=0;g<e.length;g++){var h=
-encodeURIComponent(e[g].url);encodeURIComponent(e[g].title);h.includes("instagram.com")&&(chrome.tabs.update(e[g].id,{url:"https://www.instagram.com/"}),setTimeout(function(){SendMessage("SendUserHeader","firstTime",firstTime,ComPortContent);firstTime=!1},5E3))}});else if("myCollectJob"==a.Tag)myCollectJob=a.Job;else if("GetTopFollowers"!=a.Tag)if("GetStory"==a.Tag)SendMessage("UpdateStory","story",last_story,ComPortContent);else if("GetDM"==a.Tag)SendMessage("DODM","story",savedDM,ComPortContent),
+        SendMessage(
+            "SendUserHeader",
+            "firstTime",
+            firstTime,
+            ComPortContent
+        );firstTime=!1},1E4))}}); else if ("Setaddideal"==a.Tag) addIdeal=a.addideal , SaveDatabase(); else if ("UpdateHours"==a.Tag) --hoursLeft, SaveDatabase(); else if ("Setunfollowinstoo"==a.Tag) unfollow_mode=a.unfollowInstoo, SaveDatabase(); else if ("UpdatePinterestFollowLimit"==a.Tag) MaxPinterestFollows=a.limit, SaveDatabase(); else if ("UpdatePinterestLikeLimit"==a.Tag) MaxPinterestLikes=a.limit,
+SaveDatabase(); else if ("UpdateLinkedinFollowLimit"==a.Tag) MaxLinkedinFollows= a.limit,SaveDatabase(); else if("UpdateLinkedinLikeLimit"==a.Tag) MaxLinkedinLikes= a.limit,SaveDatabase(); else if ("UpdateTinderCommentLimit"==a.Tag) MaxTinderComments= a.limit,SaveDatabase(); else if ("UpdateTinderLikeLimit" == a.Tag) MaxTinderLikes= a.limit, SaveDatabase(); else if ("UpdateTwitterFollowLimit" == a.Tag) MaxTwitterFollows = a.limit, SaveDatabase(); else if ("UpdateTwitterLikeLimit" == a.Tag) MaxTwitterLikes = a.limit,SaveDatabase();
+else if ("DODM"==a.Tag) "function" === typeof chrome.tabs.getAllInWindow?chrome.tabs.query({windowType:"normal"},function(e){
+    for(var g=0;g<e.length;g++){
+        var h=encodeURIComponent(e[g].url);
+        encodeURIComponent(e[g].title);
+        if(h.includes("instagram.com")){
+            chrome.tabs.update(e[g].id,{url:"https://www.instagram.com/"+a.username});
+            activeTab=g;
+            --likeError;
+            CurrentUser && setTimeout(function(){
+                CurrentUser && (
+                    SendMessage(
+                        "DODM",
+                        "story",
+                        {
+                            StartReact:StartReact,
+                            reacts:reacts || [],
+                            CommentedMedia:CommentedMedia,
+                            maxComments:maxComments,
+                            CommentPool:CommentPool,
+                            backgroundDMs:backgroundDMs,
+                            StartComment:StartComment,
+                            RankedTargets:RankedTargets,
+                            recents:recents,
+                            currentSpeed:currentSpeed,
+                            storyUser:a.username,
+                            getStats:getStats,
+                            LikedMedia:LikedMedia,
+                            username:CurrentUser.username,
+                            Whitelist:Whitelist,
+                            StartUnfollow:StartUnfollow,
+                            StartFollow:StartFollow,
+                            StartLike:StartLike,
+                            maxFollows:maxFollows,
+                            FollowPoolSize:FollowedPool.length,
+                            maxLikes:maxLikes,
+                            LikePoolSize:likeCount,
+                            UnfollowPoolSize:UnfollowedPool.length,
+                            maxUnfollows:maxUnfollows,
+                            likeError:likeError
+                        },
+                        ComPortContent
+                    ),
+                    savedDM={
+                        StartReact:StartReact,
+                        reacts:reacts || [],
+                        CommentedMedia:CommentedMedia,
+                        maxComments:maxComments,
+                        CommentPool:CommentPool,
+                        StartComment:StartComment,
+                        RankedTargets:RankedTargets,
+                        recents:recents,currentSpeed:currentSpeed,
+                        storyUser:a.username,
+                        getStats:getStats,
+                        LikedMedia:LikedMedia,
+                        username:CurrentUser.username,
+                        Whitelist:Whitelist,
+                        StartUnfollow:StartUnfollow,
+                        StartFollow:StartFollow,
+                        StartLike:StartLike,
+                        maxFollows:maxFollows,
+                        FollowPoolSize:FollowedPool.length,
+                        maxLikes:maxLikes,
+                        LikePoolSize:likeCount,
+                        UnfollowPoolSize:UnfollowedPool.length,
+                        maxUnfollows:maxUnfollows,likeError:likeError
+                    })},1E4);break}}}) : browser.tabs.query({currentWindow:!0}).then(logTabsDM,onError); else if ("SetDMMode"==a.Tag) backgroundDMs=a.mode,SaveDatabase(); else if ("userLogin"==a.Tag) SendMessage(
+                        "userLogin",
+                        "story",
+                        "savedDM",
+                        ComPortContent
+                    ),firstTime=!1; else if ("SetEnableFilters"==a.Tag) EnableFilters = a.mode,SaveDatabase(); else if ("GetUserStats"==a.Tag) chrome.tabs.query({windowType:"normal"}, function(e){
+                        for(var g=0;g<e.length;g++){
+                            var h=encodeURIComponent(e[g].url);
+                            encodeURIComponent(e[g].title);
+                            h.includes("instagram.com") && (chrome.tabs.update(
+                                e[g].id,{url:"https://www.instagram.com/"}
+                            ),setTimeout(
+                                function(){
+                                    SendMessage(
+                                        "SendUserHeader",
+                                        "firstTime",
+                                        firstTime,
+                                        ComPortContent
+                                    );firstTime=!1},5E3))}}); else if ("myCollectJob"==a.Tag) myCollectJob=a.Job; else if ("GetTopFollowers"!=a.Tag) if ("GetStory"==a.Tag) SendMessage("UpdateStory","story",last_story,ComPortContent); else if ("GetDM"==a.Tag) SendMessage("DODM","story",savedDM,ComPortContent),
 SaveDatabase();else if("SetReactMode"==a.Tag)StartReact=a.reacts,SaveDatabase();else if("DoneLinkedin"==a.Tag)TotalLinkedins.push(a.target),SaveDatabase();else if("DoneTwitter"==a.Tag)TotalTwitter.push(a.target),SaveDatabase();else if("RankedID"!=a.Tag)if("SetSchedule"==a.Tag)StartSchedule=a.schedule,SaveDatabase();else if("SetStart"==a.Tag)StartTime=a.start,SaveDatabase();else if("LinkedinTarget"==a.Tag)LinkedinTargets.push(a.target),SaveDatabase();else if("TwitterTarget"==a.Tag)TwitterTargets.push(a.target),
 SaveDatabase();else if("SetDuration"==a.Tag)Duration=a.duration,SaveDatabase();else if("SetAutoActions"==a.Tag)AutoActions=a.actions,SaveDatabase();else if("SetReacts"==a.Tag)-1<a.reacts.indexOf("on")?(StartReact=!0,reacts=a.reacts,reacts.splice(0,1)):(StartReact=!1,reacts=a.reacts),SaveDatabase();else if("Pause"==a.Tag)StoryFollow=StartLike=StartUnfollow=StartStory=!1,SendMessage("Pause","User",CurrentUser,ComPortIndex);else if("triggerUnfollow"!=a.Tag)if("triggerUnfollow"==a.Tag)setTimeout(function(){SendMessage("triggerUnfollow",
 "story",{currentSpeed:currentSpeed,storyUser:"",getStats:getStats,LikedMedia:LikedMedia,username:CurrentUser.username,Whitelist:Whitelist,StartUnfollow:StartUnfollow,StartFollow:StartFollow,StartLike:StartLike,maxFollows:maxFollows,FollowPoolSize:FollowedPool.length,maxLikes:maxLikes,LikePoolSize:likeCount,UnfollowPoolSize:UnfollowedPool.length,maxUnfollows:maxUnfollows,likeError:likeError},ComPortContent)},2E3);else if("setStats"==a.Tag)getStats=0;else if("Recents"==a.Tag)for(recents=a.recents,b=
